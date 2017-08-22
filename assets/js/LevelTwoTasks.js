@@ -2,6 +2,8 @@ var WorkBookL2 = {
 
     jsonFeed: "",
     jsonObject: {},
+    kingResults: [],
+    currKing: 0,
 
     iterationThree: function(maxNum, div3Text, div5Text) {
         for(var i = 1; i <= 100; i++) {
@@ -92,7 +94,7 @@ var WorkBookL2 = {
                 WorkBookL2.jsonFeed = this.responseText;
                 WorkBookL2.jsonObject = JSON.parse(this.responseText);
             }
-        };
+        }
         xhr.send();
 
         $('#output').append("<p>" + this.jsonFeed + "</p>");
@@ -125,7 +127,7 @@ var WorkBookL2 = {
         return final;
     },
 
-    jsonTwo: function() {
+    jsonTwo: function(input) {
         var url = "https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/kings.json";
 
         // Should use async
@@ -141,5 +143,58 @@ var WorkBookL2 = {
 
         $('#output').append("<p>" + this.jsonFeed + "</p>");
         console.log(this.jsonObject);
+
+        this.kingResults = [];
+
+        for(var king in this.jsonObject) {
+            var kingStr = this.jsonObject[king].nm + " " + this.jsonObject[king].cty + " " + this.jsonObject[king].hse + " " + this.jsonObject[king].yrs;
+            
+            if(kingStr.toLowerCase().includes(input.toLowerCase())) {
+                this.kingResults.push(this.jsonObject[king]);
+                console.log("Found: " + kingStr);
+            }
+        }
+
+        console.log("Found " + this.kingResults.length + " results for search term " + input);
+        $('#output').append("<p>Found " + this.kingResults.length + " results for search term " + input + "</p>");
+        $('#render-target-kings').text("Found " + this.kingResults.length + " results for search term " + input);
+
+        this.jsonTwoShowKings();
+    },
+
+    jsonTwoShowKings: function() {
+        if(this.kingResults.length > 0) {
+            $('#render-target-kings').append(
+                "<div id=\"render-target-result\">" +
+                    "<br/><strong>Current Result</strong>: " + (parseInt(this.currKing) + 1) +
+                    "<br/><br/><strong>King Name</strong>: " + this.kingResults[this.currKing].nm +
+                    "<br/><strong>King City</strong>: " + this.kingResults[this.currKing].cty +
+                    "<br/><strong>King House</strong>: " + this.kingResults[this.currKing].hse +
+                    "<br/><strong>King Years</strong>: " + this.kingResults[this.currKing].yrs +
+                "</div>"
+            );
+        }
+    },
+
+    jsonTwoPrevKing: function() {
+        this.currKing--;
+
+        if(this.currKing < 0) {
+            this.currKing = 0;
+        }
+
+        $('#render-target-result').remove();
+        this.jsonTwoShowKings();
+    },
+
+    jsonTwoNextKing: function() {
+        this.currKing++;
+
+        if(this.currKing > this.kingResults.length-1) {
+            this.currKing = this.kingResults.length-1;
+        }
+        
+        $('#render-target-result').remove();
+        this.jsonTwoShowKings();
     }
 }

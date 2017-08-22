@@ -23,11 +23,10 @@
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Challenges</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="./about.html">About</a></li>
-                        <li><a href="./projects.html">Personal Projects</a></li>
-                        <li class="active"><a href="./jstasks.html">QA Tasks</a></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./projects.html">Personal Projects</a></li>
+                    <li class="active"><a href="./jstasks.html">QA Tasks</a></li>
                 </ul>
             </div>
         </nav>
@@ -64,22 +63,20 @@
                                         You can also change these values below.
 
                                     </p>
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input value="100" placeholder="Max Number" id="l2_fb_maxnum" type="number" class="validate">
-                                            </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input value="100" placeholder="Max Number" id="l2_fb_maxnum" type="number" class="validate">
                                         </div>
-                                        <div class="row">
-                                            <div class="input-field col s6">
-                                                <input value="Fizz"  placeholder="Divisible 3 Text" id="l2_fb_3text" type="text" class="validate">
-                                            </div>
-                                            <div class="input-field col s6">
-                                                <input value="Buzz" placeholder="Divisible 5 Text" id="l2_fb_5text" type="text" class="validate">
-                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input value="Fizz"  placeholder="Divisible 3 Text" id="l2_fb_3text" type="text" class="validate">
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationThree($('#l2_fb_maxnum').val(), $('#l2_fb_3text').val(), $('#l2_fb_5text').val()); UtilityFunctions.scroll();">Run Test</a>
-                                    </form>
+                                        <div class="input-field col s6">
+                                            <input value="Buzz" placeholder="Divisible 5 Text" id="l2_fb_5text" type="text" class="validate">
+                                        </div>
+                                    </div>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationThree($('#l2_fb_maxnum').val(), $('#l2_fb_3text').val(), $('#l2_fb_5text').val()); UtilityFunctions.scroll();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-2">
@@ -94,14 +91,12 @@
                                         <br>
                                         • It stops when the number it reaches is 1
                                     </p>
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
-                                            </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
-                                    </form>
+                                    </div>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-3">
@@ -119,52 +114,54 @@
                                         <br/>
                                         Input-> xxxabyyyycd Output-> 3
                                     </p>
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input value="abcXXXabc" placeholder="Enter the string value to check..." id="l2_s4_string" type="text" class="validate">
-                                            </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input value="abcXXXabc" placeholder="Enter the string value to check..." id="l2_s4_string" type="text" class="validate">
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.stringsFour($('#l2_s4_string').val()); UtilityFunctions.scroll();">Run Test</a>
-                                    </form>
+                                    </div>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.stringsFour($('#l2_s4_string').val()); UtilityFunctions.scroll();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-4">
                                 <h3 class="center-align">DOM 1</h3>
                                 <div class="row">
-                                    <form class="col s12">
-                                        <div class="row center-align">
-                                            <div id="create-target"></div>
-                                            <div class="input-field col s12">
-                                                <input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." placeholder="Enter the string value to check..." id="l2_d1_string" type="text" class="validate">
-                                            </div>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.createParagraph(); UtilityFunctions.scroll();">Create Paragraph</a>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.saveParagraph($('#l2_d1_string').val()); UtilityFunctions.scroll();">Save Paragraph</a>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.deleteParagraph(); UtilityFunctions.scroll();">Delete Paragraph</a>
+                                    <div class="row center-align">
+                                        <div id="create-target"></div>
+                                        <div class="input-field col s12">
+                                            <input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." placeholder="Enter the string value to check..." id="l2_d1_string" type="text" class="validate">
                                         </div>
-                                    </form>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.createParagraph(); UtilityFunctions.scroll();">Create Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.saveParagraph($('#l2_d1_string').val()); UtilityFunctions.scroll();">Save Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.deleteParagraph(); UtilityFunctions.scroll();">Delete Paragraph</a>
+                                    </div>
                                 </div>
                             </div>
                             <div id="test-swipe-5">
                                 <h3 class="center-align">JSON 1</h3>
                                 <div class="row center-align">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div id="render-target-heroes" class="input-field col s12"></div>
-                                        </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonOne(); UtilityFunctions.scroll();">Get Super Heroes</a>
-                                    </form>
+                                    <div class="row">
+                                        <div id="render-target-heroes" class="input-field col s12"></div>
+                                    </div>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonOne(); UtilityFunctions.scroll();">Get Super Heroes</a>
                                 </div>
                             </div>
                             <div id="test-swipe-6">
                                 <h3 class="center-align">JSON 2</h3>
                                 <div class="row center-align">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div id="render-target-heroes" class="input-field col s12"></div>
+                                    <div class="row center-align">
+                                        <div class="center-align" id="render-target-kings"></div>
+                                        <div class="input-field col s12">
+                                            <input placeholder="Enter a search term here..." id="l2_searchterm" type="text" class="validate" />
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwo(); UtilityFunctions.scroll();">Get Kings</a>
-                                    </form>
+                                        <p>
+                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwo($('#l2_searchterm').val()); UtilityFunctions.scroll();">Get Kings</a>
+                                        </p>
+                                        <p>
+                                            <br/>
+                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwoPrevKing(); UtilityFunctions.scroll();">Prev</a>
+                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwoNextKing(); UtilityFunctions.scroll();">Next</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

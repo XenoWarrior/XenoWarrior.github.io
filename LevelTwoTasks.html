@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ashley Scott - QA Consulting</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="./assets/materialize/css/materialize.min.css" />
+        <link rel="stylesheet" href="./assets/css/custom.css" />
+
+        <script src="./assets/materialize/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Challenges</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li class="active"><a href="./projects.html">Projects</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <div class="container">
+                <h3 class="center-align">Challenges Level 2</h3>
+                <div class="row">
+                    <script src="./assets/js/LevelTwoTasks.js"></script>
+                    <script src="./assets/js/UtilityFunctions.js"></script>
+                    <div>
+                        <a class="waves-effect waves-light btn" onclick="">
+                            Placeholder
+                        </a>
+                    </div>
+                    <br/>
+                    <div>
+                        <a class="waves-effect waves-light btn" onclick="UtilityFunctions.clear();">Clear</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <div class="center-align valign-wrapper">
+                                <span class="center-align card-title">Output:</span>
+                            </div>
+                            <hr/>
+                            <pre id="output">
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <ul id="tabs-swipe-demo" class="tabs">
+                                <li class="tab col s4"><a class="active" href="#test-swipe-1">Test 1</a></li>
+                                <li class="tab col s4"><a href="#test-swipe-2">Test 2</a></li>
+                                <li class="tab col s4"><a href="#test-swipe-3">Test 3</a></li>
+                            </ul>
+                            <div id="test-swipe-1">
+                                <h3 class="center-align">Iteration 3 - FizzBuzz</h3>
+                                <div class="row">
+                                    <p class="center-align">
+                                        FizzBuzz
+                                        <br/>
+                                        If the number is divisibly by 3, "Fizz" will print.
+                                        <br/>
+                                        If the number is divisibly by 5, "Buzz" will print.
+                                        <br/>
+                                        You can also change these values below.
+
+                                    </p>
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input value="100" placeholder="Max Number" id="l2_fb_maxnum" type="number" class="validate">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input value="Fizz"  placeholder="Divisible 3 Text" id="l2_fb_3text" type="text" class="validate">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input value="Buzz" placeholder="Divisible 5 Text" id="l2_fb_5text" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationThree($('#l2_fb_maxnum').val(), $('#l2_fb_3text').val(), $('#l2_fb_5text').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="test-swipe-2">
+                                <h3 class="center-align">Iteration 4</h3>
+                                <div class="row">
+                                    <p class="center-align">
+                                        Create a method accepts a number then, outputting what it did at each iteration, and how many iterations it took to get to the end.
+                                        <br>
+                                        • If the number is divisible by 3, divide it by 3.
+                                        <br>
+                                        • If it’s not, either add 1 or subtract 1 (to make it divisible by 3), then divide it by 3.
+                                        <br>
+                                        • It stops when the number it reaches is 1
+                                    </p>
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
+                                            </div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="test-swipe-3">
+                                <h3 class="center-align">Strings 4</h3>
+                                <div class="row">
+                                    <p class="center-align">
+                                        We’ll say that a “triple” in a string is a character appearing three times in a row.
+                                        <br/>
+                                        Create a function that accepts a string and returns the amount of times a triple exists in that string.
+                                        <br/>
+                                        Triples may overlap.
+                                        <br/>
+                                        <br/>
+                                        Input-> abcXXXabc Output-> 1
+                                        <br/>
+                                        Input-> xxxabyyyycd Output-> 3
+                                    </p>
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
+                                            </div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Content</h5>
+                        <p class="grey-text text-lighten-4">Quick demonstration site developed by Ashley Scott during QA Consulting training.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Quick Navigation</h5>
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./projects.html">Projects</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">Copyright &copy; Ashley Scott</div>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('ul.tabs').tabs();
+            });
+        </script>
+    </body>
+</html>

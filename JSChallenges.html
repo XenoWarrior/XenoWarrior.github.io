@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ashley Scott - QA Consulting</title>
+        <link rel="stylesheet" href="./assets/materialize/css/materialize.min.css" />
+        <link rel="stylesheet" href="./assets/css/custom.css" />
+
+        <script src="./assets/materialize/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Challenges</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li class="active"><a href="./projects.html">Projects</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <div class="container">
+                <h3 class="center-align">Challenges</h3>
+                <div class="row">
+                    <a class="waves-effect waves-light btn" onclick="ChallengeOne.runTasks();">Task 1</a>
+                    <a class="waves-effect waves-light btn" onclick="ChallengeTwo.runTasksA();">Task 2a</a>
+                    <a class="waves-effect waves-light btn" onclick="ChallengeTwo.runTasksB();">Task 2b</a>
+                    <a class="waves-effect waves-light btn" onclick="PageOutput.clear();">Clear</a>
+                </div>
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <div class="center-align valign-wrapper">
+                                <span class="center-align card-title">Output:</span>
+                            </div>
+                            <hr/>
+                            <div id="output">
+                                <p>
+                                    <script type="text/javascript">
+                                        var PageOutput = { 
+                                            clear: function() {
+                                                $('#output').text("");
+                                            }
+                                        }
+
+                                        var ChallengeOne = {
+                                            someValue: "Something...",
+                                            getValue: function() {
+                                                return this.someValue;
+                                            },
+                                            setValue: function(v) {
+                                                this.someValue = v;
+                                            },
+                                            runTasks: function() {
+                                                $('#output').append("<p>Task 1: " + this.getValue() + "</p>");
+                                                window.alert("Task 1: " + this.getValue());
+                                                console.log("Task 1: " + this.getValue());
+
+                                                this.setValue("Something new!");
+
+                                                $('#output').append("<p>Task 1: " + this.getValue() + "</p>");
+                                                window.alert("Task 1: " + this.getValue());
+                                                console.log("Task 1: " + this.getValue());
+
+                                                $('#output').append("<br/><br/>");
+
+                                                var element = $('#output');
+                                                var height = element[0].scrollHeight;
+                                                element.scrollTop(height);
+                                            }
+                                        };
+
+                                        var ChallengeTwo = {
+                                            person: {
+                                                name: "Placeholder Name",
+                                                age: -1,
+                                                occupation: "Placeholder Occupation"
+                                            },
+
+                                            square: function (input) {
+                                                return input * input;
+                                            },
+                                            sum3: function(i1, i2, i3) {
+                                                return i1 + i2 + i3;
+                                            },
+                                            runTasksA: function() {
+                                                $('#output').append("<p>Task 2A (Square of 5): " + this.square(5) + "</p>");
+                                                $('#output').append("<p>Task 2A (Sum of 1+2+3): " + this.sum3(1, 2, 3) + "</p>");
+
+                                                $('#output').append("<br/>");
+                                                $('#output').append("<p>Task 2A (get: person.name): " + this.person.name + "</p>");
+                                                $('#output').append("<p>Task 2A (get: person.age): " + this.person.age + "</p>");
+                                                $('#output').append("<p>Task 2A (get: person.occupation): " + this.person.occupation + "</p>");
+
+                                                this.person.name = "New Name!";
+                                                this.person.age = 0;
+                                                this.person.occupation = "New Occupation!";
+
+                                                $('#output').append("<br/>");
+                                                $('#output').append("<p>Task 2A (new: person.name): " + this.person.name + "</p>");
+                                                $('#output').append("<p>Task 2A (new: person.age): " + this.person.age + "</p>");
+                                                $('#output').append("<p>Task 2A (new: person.occupation): " + this.person.occupation + "</p>");
+
+                                                $('#output').append("<br/><br/>");
+
+                                                var element = $('#output');
+                                                var height = element[0].scrollHeight;
+                                                element.scrollTop(height);
+                                            },
+                                            runTasksB: function() {
+                                                this.person.age += 1;
+                                                $('#output').append("<p>Task 2B (increment: person.age): " + this.person.age + "</p>");
+
+                                                var element = $('#output');
+                                                var height = element[0].scrollHeight;
+                                                element.scrollTop(height);
+                                            }
+                                        };
+                                    </script>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Content</h5>
+                        <p class="grey-text text-lighten-4">Quick demonstration site developed by Ashley Scott during QA Consulting training.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Quick Navigation</h5>
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./projects.html">Projects</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">Copyright &copy; Ashley Scott</div>
+            </div>
+        </footer>
+    </body>
+</html>

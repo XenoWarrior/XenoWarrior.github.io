@@ -99,14 +99,14 @@ var WorkBookL2 = {
         console.log(this.jsonObject);
 
         $('#render-target-heroes').append(
-            "<div><h4>" + this.jsonObject.squadName + "</h4>" + 
+            "<div><h4 class=\"left-align\">" + this.jsonObject.squadName + "</h4>" + 
             "<p><strong>Home Town</strong>:" + this.jsonObject.homeTown + "</p>" + 
             "<p><strong>Secret Base</strong>:" + this.jsonObject.secretBase + "</p>" + 
             "<p><strong>Formed</strong>:" + this.jsonObject.formed + "</p>" + 
             "<p><strong>Active</strong>:" + (this.jsonObject.active ? "Yes" : "No") + "</p></div><br/><br/>"
         );
 
-        $('#render-target-heroes').append("<h4>Team Members</h4>");
+        $('#render-target-heroes').append("<h4 class=\"left-align\">Team Members</h4>");
         for(var player in this.jsonObject.members) {
             $('#render-target-heroes').append(
                 "<div><p><strong>Player Name</strong>: " + this.jsonObject.members[player].name + "</p>" + 

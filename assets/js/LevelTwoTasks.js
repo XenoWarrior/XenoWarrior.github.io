@@ -70,6 +70,7 @@ var WorkBookL2 = {
             $('#output').append("<p>Saved text into paragraph.</p>");
             block.innerHTML = input;
         }
+        else {
             $('#output').append("<p>Paragraph does not exist, create it first.</p>");
         }
     },

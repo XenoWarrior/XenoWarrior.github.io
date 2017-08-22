@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ashley Scott - QA Consulting</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="./assets/materialize/css/materialize.min.css" />
+        <link rel="stylesheet" href="./assets/css/custom.css" />
+
+        <script src="./assets/materialize/js/materialize.min.js"></script>
+
+        <script src="./assets/js/LevelOneTasks.js"></script>
+        <script src="./assets/js/UtilityFunctions.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('ul.tabs').tabs();
+            });
+        </script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Challenges</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./projects.html">Personal Projects</a></li>
+                    <li class="active"><a href="./jstasks.html">QA Tasks</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <div class="container">
+                <h3 class="center-align">Challenges Level 1</h3>
+                <div class="row">
+                </div>
+                
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <ul id="tabs-swipe-demo" class="tabs">
+                                <li class="tab col m12"><a class="active" href="#test-swipe-1">Functions 3 / Events 2</a></li>
+                            </ul>
+                            <div id="test-swipe-1">
+                                <h3 class="center-align">Functions 3 / Events 2</h3>
+                                <div class="row center-align">
+                                    <p>
+                                        A person object already exists, this simply updates it.
+                                    </p>
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input placeholder="Name" id="l1_f3_e2_name" type="text" class="validate">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="Age" id="l1_f3_e2_age" type="number" class="validate">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input placeholder="Job" id="l1_f3_e2_job" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL1.createPersonByForm(); UtilityFunctions.scroll();">Set</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL1.getPersonByForm(); UtilityFunctions.scroll();">Get</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <ul id="tabs-swipe-demo" class="tabs">
+                                <li class="tab col m1.5"><a class="active" href="#tasks-1">Hello, World!</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-2">Variables</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-3">Functions</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-4">Events</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-5">Strings</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-6">Arrays / Strings</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-7">Conditionals</a></li>
+                                <li class="tab col m1.5"><a href="#tasks-8">Iteration</a></li>
+                            </ul>
+                            <div id="tasks-1">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.createScript();">
+                                        Hello World
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="tasks-2">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.variablesOutput(); UtilityFunctions.scroll();">
+                                        Variables 1
+                                    </a>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.createPerson(); UtilityFunctions.scroll();">
+                                        Variables 2
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div id="tasks-3">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.squareNumber(5); UtilityFunctions.scroll();">
+                                        Functions 1
+                                    </a>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.sumOfThree(1, 2, 3); UtilityFunctions.scroll();">
+                                        Functions 2
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div id="tasks-4">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.incrementAge(); UtilityFunctions.scroll();">
+                                        Events 1
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div id="tasks-5">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.heSaidMyName(); UtilityFunctions.scroll();">
+                                        Strings 1
+                                    </a>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.concatStringNum(); UtilityFunctions.scroll();">
+                                        Strings 2
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div id="tasks-6">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.arrayStringsTask(); UtilityFunctions.scroll();">
+                                        Arrays 1 / Strings 3 
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="tasks-7">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.checkAge(); UtilityFunctions.scroll();">
+                                        Conditionals 1
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="tasks-8">
+                                <div class="row center-align">
+                                    <br>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.iterationOne(); UtilityFunctions.scroll();">
+                                        Iteration 1
+                                    </a>
+                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.iterationTwo(); UtilityFunctions.scroll();">
+                                        Iteration 2
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <div class="center-align valign-wrapper">
+                                <span class="center-align card-title">Output:</span>
+                            </div>
+                            <hr/>
+                            <pre id="output"></pre>
+                            <div>
+                                <a class="waves-effect waves-light btn" onclick="UtilityFunctions.clear();">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+            </div>
+        </main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Content</h5>
+                        <p class="grey-text text-lighten-4">Quick demonstration site developed by Ashley Scott during QA Consulting training.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Quick Navigation</h5>
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./projects.html">Personal Projects</a></li>
+                            <li><a href="./jstasks.html">QA Tasks</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">Copyright &copy; Ashley Scott</div>
+            </div>
+        </footer>
+    </body>
+</html>

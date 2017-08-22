@@ -27,7 +27,7 @@
                     <script src="./assets/js/UtilityFunctions.js"></script>
                     <div>
                         <a class="waves-effect waves-light btn" onclick="">
-                            Placeholder
+                            JSON 1
                         </a>
                     </div>
                     <br/>
@@ -42,8 +42,7 @@
                                 <span class="center-align card-title">Output:</span>
                             </div>
                             <hr/>
-                            <pre id="output">
-                            </pre>
+                            <pre id="output"></pre>
                         </div>
                     </div>
                 </div>
@@ -51,9 +50,12 @@
                     <div class="card white darken-1">
                         <div class="card-content black-text">
                             <ul id="tabs-swipe-demo" class="tabs">
-                                <li class="tab col s4"><a class="active" href="#test-swipe-1">Test 1</a></li>
-                                <li class="tab col s4"><a href="#test-swipe-2">Test 2</a></li>
-                                <li class="tab col s4"><a href="#test-swipe-3">Test 3</a></li>
+                                <li class="tab"><a class="active" href="#test-swipe-1">Iteration 3</a></li>
+                                <li class="tab"><a href="#test-swipe-2">Iteration 4</a></li>
+                                <li class="tab"><a href="#test-swipe-3">Strings 4</a></li>
+                                <li class="tab"><a href="#test-swipe-4">DOM 1</a></li>
+                                <li class="tab"><a href="#test-swipe-5">JSON 1</a></li>
+                                <li class="tab"><a href="#test-swipe-6">JSON 2</a></li>
                             </ul>
                             <div id="test-swipe-1">
                                 <h3 class="center-align">Iteration 3 - FizzBuzz</h3>
@@ -126,10 +128,48 @@
                                     <form class="col s12">
                                         <div class="row">
                                             <div class="input-field col s12">
-                                                <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
+                                                <input value="abcXXXabc" placeholder="Enter the string value to check..." id="l2_s4_string" type="text" class="validate">
                                             </div>
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.stringsFour($('#l2_s4_string').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="test-swipe-4">
+                                <h3 class="center-align">DOM 1</h3>
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div id="create-target"></div>
+                                            <div class="input-field col s12">
+                                                <input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." placeholder="Enter the string value to check..." id="l2_d1_string" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.createParagraph(); UtilityFunctions.scroll();">Create Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.saveParagraph($('#l2_d1_string').val()); UtilityFunctions.scroll();">Save Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.deleteParagraph(); UtilityFunctions.scroll();">Delete Paragraph</a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="test-swipe-5">
+                                <h3 class="center-align">JSON 1</h3>
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div id="render-target-heroes" class="input-field col s12"></div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonOne(); UtilityFunctions.scroll();">Get Super Heroes</a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="test-swipe-6">
+                                <h3 class="center-align">JSON 2</h3>
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div id="render-target-heroes" class="input-field col s12"></div>
+                                        </div>
+                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwo(); UtilityFunctions.scroll();">Get Kings</a>
                                     </form>
                                 </div>
                             </div>

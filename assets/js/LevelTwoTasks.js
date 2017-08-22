@@ -128,6 +128,7 @@ var WorkBookL2 = {
     },
 
     jsonTwo: function(input) {
+        this.currKing = 0;
         var url = "https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/kings.json";
 
         // Should use async

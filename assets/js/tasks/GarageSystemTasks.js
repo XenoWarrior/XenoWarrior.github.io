@@ -4,11 +4,11 @@ var GarageSystem = {
     vehicleList: {},
     uniqueId: 0,
 
-    addVehicle: function (reg, brand, model, faults, OPTIONAL_TYPE) {
-        var tempVehicle = Vehicle.make(reg, brand, model, faults);
+    addVehicle: function (reg, make, model, faults, type) {
+        var tempVehicle = Vehicle.make(this.uniqueId, reg, make, model, faults, type);
 
         this.vehicleList[this.uniqueId] = tempVehicle;
-        this.debugPrint(`<p>Added vehicle: ${tempVehicle.serialiseVehicle()}</p>`);
+        this.debugPrint(`Added vehicle: ${tempVehicle.serialiseVehicle()}`);
         this.uniqueId++;
     },
 
@@ -33,11 +33,11 @@ var GarageSystem = {
     printInventory: function () {
         if(UtilityFunctions.size(this.getInventory()) > 0) {
             Object.keys(this.getInventory()).forEach(function(key) {
-                this.cmdPrint(`<p> >> Found vehicle: ${this.getInventory()[key].serialiseVehicle()}</p>`);
+                this.cmdPrint(` >> Found vehicle: ${this.getInventory()[key].serialiseVehicle()}`);
             }, this);
         }
         else {
-            this.cmdPrint(`<p> >> No vehicles found.</p>`);
+            this.cmdPrint(` >> No vehicles found.`);
         }
     },
 
@@ -45,14 +45,17 @@ var GarageSystem = {
 
     },
     
-    handleCommand: function(cmd) {
-        this.debugPrint(`<p>Execute: ${cmd}</p>`);
-        this.cmdPrint(`<p> > ${cmd}</p>`);
+    handleCommand: function(raw) {
+
+        let cmd = raw.toLowerCase();
+
+        this.debugPrint(`Execute: ${cmd}`);
+        this.cmdPrint(` > ${cmd}`);
 
         let cmdParams = cmd.split(" ");
 
         cmdParams.forEach((part) => {
-            this.debugPrint(`<p>Command Part: ${part}</p>`);
+            this.debugPrint(`Command Part: ${part}`);
         });
 
         if(cmd == "") {
@@ -63,73 +66,81 @@ var GarageSystem = {
 
         switch(cmdParams[0]) {
             case "create": 
-                this.debugPrint(`<p>-> Command: create</p>`);
-                this.debugPrint(`<p>--> has parameter '${cmdParams[1]}'</p>`);
+                this.debugPrint(`-> Command: create`);
+                this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
 
-                if(cmdParams[2] && cmdParams[3] && cmdParams[4]) {
-                    this.debugPrint(`<p>---> has three valid parameters for [reg, brand, model]</p>`);
+                if(cmdParams[1] && cmdParams[2] && cmdParams[3] && cmdParams[4]) {
+                    this.debugPrint(`---> has three valid parameters for [reg, make, model]`);
 
                     switch(cmdParams[1]) {
                         case "car":
-                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_CAR');
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Car');
                         break;
                         
                         case "motorcycle":
-                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_MOTORCYLE');
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Motorcycle');
                         break;
                         
                         case "van":
-                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_VAN');
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Van');
+                        break;
+
+                        case "unknown":
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Unknown Type');
                         break;
     
                         default:
-                            this.debugPrint(`<p>--> has invalid parameter '${cmdParams[1]}'</p>`);
-                            this.cmdPrint(`<p> >> Command: [create], Available Parameters: [car, motorcycle, van].</p>`);
+                            this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
+                            this.cmdPrint(` >> Command: [create], Available Types: [car, motorcycle, van, unknown].`);
                         break;
                     }
                 }
+                else {
+                    this.cmdPrint(` >> Command: [create], Required Parameters: [type, registration, make, model].`);
+                }
+
+                GarageEvents.onInventoryClick();
             break;
 
             case "print":
-                this.debugPrint(`<p>-> Command: print</p>`);
-                this.debugPrint(`<p>--> has parameter '${cmdParams[1]}'</p>`);
+                this.debugPrint(`-> Command: print`);
+                this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
                 switch(cmdParams[1]) {
                     case "inventory":
-                        this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
+                        this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
                         this.printInventory();
                     break;
 
                     case 'vehicle':
-                        this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
-                        this.cmdPrint(`<p> >> Command: [print][vehicle], Not yet implemented.</p>`);
+                        this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                        this.cmdPrint(` >> Command: [print][vehicle], Not yet implemented.`);
                     break;
 
                     default:
-                        this.debugPrint(`<p>--> has invalid parameter '${cmdParams[1]}'</p>`);
-                        this.cmdPrint(`<p> >> Command: [print], Available Parameters: [inventory, vehicle].</p>`);
+                        this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
+                        this.cmdPrint(` >> Command: [print], Available Parameters: [inventory, vehicle].`);
                     break;
                 }
             break;
 
             case 'help': 
-                this.debugPrint(`<p>-> Command: print</p>`);
-                this.cmdPrint(`<p> >> Available commands: [create, print, help].</p>`);
+                this.debugPrint(`-> Command: print`);
+                this.cmdPrint(` >> Available commands: [create, print, help].`);
             break;
 
             default:
-                this.cmdPrint(`<p> >> Unknown command: ${cmd}</p>`);
+                this.cmdPrint(` >> Unknown command: ${cmd}`);
             break;
         }
     },
-
-
     cmdPrint: (val) => {
-        $('#admin-output').append(val);
+        $('#admin-output').append(`<p>${val}</p>`);
     },
     debugPrint: (val) => {
-        $('#output').append(val);
+        $('#output').append(`<p>${val}</p>`);
     }
 };

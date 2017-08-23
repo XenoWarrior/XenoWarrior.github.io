@@ -19,6 +19,9 @@
             $(document).ready(function(){
                 $('ul.tabs').tabs();
             });
+            $(document).ready(function() {
+                $('select').material_select();
+            });
         </script>
     </head>
     <body>
@@ -66,10 +69,21 @@
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s6">
-                                                    <input placeholder="Enter vehicle brand..." id="l2_gs_brand" type="text" class="validate" />
+                                                    <input placeholder="Enter vehicle brand..." id="l2_gs_make" type="text" class="validate" />
                                                 </div>
                                                 <div class="input-field col s6">
                                                     <input placeholder="Enter vehicle model.." id="l2_gs_model" type="text" class="validate" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <select id="l2_gs_type">
+                                                        <option value="Unknown Type">Unknown Type</option>
+                                                        <option value="" disabled></option>
+                                                        <option value="Car" selected>Car</option>
+                                                        <option value="Motorcycle">Motorcycle</option>
+                                                        <option value="Van">Van</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <a class="waves-effect waves-light btn" onclick="GarageEvents.onAddVehicleClick();">Register</a>
@@ -88,7 +102,7 @@
                                     </div>
                                     <div id="sys-swipe-4">
                                         <div class="row center-align">
-                                            <div id="inventory-render-target" class="collection"></div>
+                                            <ul id="inventory-render-target" class="collection left-align"></ul>
                                         </div>
                                     </div>
                                 </div>

@@ -22,7 +22,7 @@
             $(document).ready(function() {
                 $('select').material_select();
             });
-        </script>
+          </script>
     </head>
     <body>
         <nav>
@@ -55,13 +55,12 @@
                                 <div class="container center-align">
                                     
                                     <ul class="tabs">
-                                        <li class="tab col m3"><a class="active" href="#sys-swipe-1">Register</a></li>
-                                        <li class="tab col m3"><a href="#sys-swipe-2">Check-In</a></li>
-                                        <li class="tab col m3"><a href="#sys-swipe-3">Check-Out</a></li>
-                                        <li class="tab col m3" onclick="GarageEvents.onInventoryClick();"><a href="#sys-swipe-4">Inventory</a></li>
+                                        <li class="tab col m6"><a class="active" href="#sys-swipe-1">Register</a></li>
+                                        <li class="tab col m6" onclick="GarageEvents.onInventoryClick();"><a href="#sys-swipe-4">Inventory</a></li>
                                     </ul>
                                     <div id="sys-swipe-1">
                                         <div class="row center-align">
+                                            <div id="error-target" class="row"></div>
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <input placeholder="Enter vehicle registration number..." id="l2_gs_reg" type="text" class="validate" />
@@ -88,16 +87,6 @@
                                             </div>
                                             <a class="waves-effect waves-light btn" onclick="GarageEvents.onAddVehicleClick();">Register</a>
                                             <!--<a class="waves-effect waves-light btn" onclick="GarageEvents.onAddFaultClick();">Add Fault</a>-->
-                                        </div>
-                                    </div>
-                                    <div id="sys-swipe-2">
-                                        <div class="row center-align">
-                                            
-                                        </div>
-                                    </div>
-                                    <div id="sys-swipe-3">
-                                        <div class="row center-align">
-                                            
                                         </div>
                                     </div>
                                     <div id="sys-swipe-4">

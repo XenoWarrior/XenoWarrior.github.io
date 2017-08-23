@@ -2,13 +2,21 @@
 
 var GarageEvents = {
     onAddVehicleClick: () => {
-        GarageSystem.addVehicle($('#l2_gs_reg').val(), $('#l2_gs_make').val(), $('#l2_gs_model').val(), ['None Registered'], $('#l2_gs_type').find(":selected").text());
+        $('#error-target').text("");
 
-        $('#l2_gs_reg').val("");
-        $('#l2_gs_make').val("");
-        $('#l2_gs_model').val("");
-        $('#l2_gs_type').val("");
-        $('#l2_gs_type').find(":selected").text();
+        if($('#l2_gs_reg').val() && $('#l2_gs_make').val() && $('#l2_gs_model').val() && $('#l2_gs_type').find(":selected").text()) {
+            GarageSystem.addVehicle($('#l2_gs_reg').val(), $('#l2_gs_make').val(), $('#l2_gs_model').val(), ['None'], $('#l2_gs_type').find(":selected").text());
+
+            $('#l2_gs_reg').val("");
+            $('#l2_gs_make').val("");
+            $('#l2_gs_model').val("");
+
+            $('#error-target').append("<br/><p>Vehicle added successfully!</p>");
+        }
+        else {
+            $('#error-target').append("<br/><p>All fields must be filled out before registering a vehicle.</p>");
+        }
+        
 
         UtilityFunctions.scroll();
     },
@@ -21,10 +29,19 @@ var GarageEvents = {
         UtilityFunctions.scroll();
     },
 
+    calculatePrice: function (key) {
+    },
+
     onInventoryClick: () => {
         $('#inventory-render-target').text("");
         if(Object.keys(GarageSystem.getInventory()).length > 0) {
             Object.keys(GarageSystem.getInventory()).forEach((key) => {
+                let finalPrice = 0;
+
+                if(GarageSystem.getInventory()[key].faults[0] != "None") {
+                    finalPrice = GarageSystem.getInventory()[key].faults.length * 50;
+                }
+
                 $('#inventory-render-target').append(`
                     <li class="collection-item">
                         <ul class="collection">
@@ -34,13 +51,56 @@ var GarageEvents = {
                             <li class="collection-item"><strong>Vehicle Make (Model)</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].make} (${GarageSystem.getInventory()[key].model})</span></li>
                             <li class="collection-item"><strong>Known Faults</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].faults}</span></li>
                         </ul>
+                        <div class="row center-align">
+                            <a class="waves-effect waves-light btn" onclick="function(){};">Check-In</a>
+                            <a class="waves-effect waves-light btn" onclick="function(){};">Check-Out</a>
+                            <a class="waves-effect waves-light btn" onclick="$('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add Faults</a>
+                            <a class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
+                            <a class="waves-effect waves-light btn" onclick="function(){};">Delete</a>
+                        </div>
                     </li>
+
+                    <div id="modal-${GarageSystem.getInventory()[key].id}" class="modal bottom-sheet">
+                        <div class="modal-content">
+                            <h4>Vehicle Bill</h4>
+                            <div class="row">
+                                <ul class="collection">
+                                    <li class="collection-item"><strong>Total Price</strong>: <span style="float: right;">${finalPrice} GBP</span></li>
+                                    <li class="collection-item"><strong>Fixed Faults</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].faults}</span></li>
+                                    <li class="collection-item"><strong>Bill Date</strong>: <span style="float: right;">00/00/0000</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Pay</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                        </div>
+                    </div>
+                    
+                    <div id="modal-addfault-${GarageSystem.getInventory()[key].id}" class="modal bottom-sheet">
+                    <div class="modal-content">
+                        <h4>Add Fault</h4>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter description here..." id="l2_gs_fault_${GarageSystem.getInventory()[key].id}" type="text" class="validate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault($('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val(), ${GarageSystem.getInventory()[key].id})">Add</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                    </div>
+                </div>
                 `);
+                
+                $(`#modal-${GarageSystem.getInventory()[key].id}`).modal();
+                $(`#modal-addfault-${GarageSystem.getInventory()[key].id}`).modal();
             });
         }
         else {
             $('#inventory-render-target').append(`<a href="#!" class="collection-item">No vehicles found.</a>`);
         }
+
     },
 
     sendCommand: () => {

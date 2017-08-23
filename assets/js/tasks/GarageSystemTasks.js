@@ -13,9 +13,18 @@ var GarageSystem = {
     },
 
     addFault: function(fault, id) {
-        if(this.vehicleList[id]) {
-            this.vehicleList[id].fault.push(fault);
+        this.debugPrint(`Adding fault to vehicle ID ${id}, the description is ${fault}`);
+
+        if(this.vehicleList[parseInt(id)]) {
+            if(this.vehicleList[parseInt(id)].faults[0] == "None") {
+                this.vehicleList[parseInt(id)].faults.splice(0, 1);
+            }
+
+            this.vehicleList[parseInt(id)].faults.push(fault);
         }
+        
+        this.debugPrint(this.vehicleList[parseInt(id)].faults);
+        GarageEvents.onInventoryClick();
     },
 
     checkInVehicle: function (id) {
@@ -75,22 +84,22 @@ var GarageSystem = {
                     switch(cmdParams[1]) {
                         case "car":
                             this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Car');
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Car');
                         break;
                         
                         case "motorcycle":
                             this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Motorcycle');
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Motorcycle');
                         break;
                         
                         case "van":
                             this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Van');
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Van');
                         break;
 
                         case "unknown":
                             this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None Registered'], 'Unknown Type');
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Unknown Type');
                         break;
     
                         default:

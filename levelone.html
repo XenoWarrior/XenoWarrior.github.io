@@ -11,7 +11,8 @@
 
         <script src="./assets/js/LevelOneTasks.js"></script>
         <script src="./assets/js/UtilityFunctions.js"></script>
-        
+        <script src="./assets/js/EventListeners.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function(){
                 $('ul.tabs').tabs();
@@ -64,8 +65,8 @@
                                             <input placeholder="Job" id="l1_f3_e2_job" type="text" class="validate">
                                         </div>
                                     </div>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.createPersonByForm(); UtilityFunctions.scroll();">Set</a>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.getPersonByForm(); UtilityFunctions.scroll();">Get</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onSetClick();">Set</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onGetClick();">Get</a>
                                 </div>
                             </div>
                         </div>
@@ -75,20 +76,22 @@
                 <div class="row">
                     <div class="card white darken-1">
                         <div class="card-content black-text">
-                            <ul id="tabs-swipe-demo" class="tabs">
-                                <li class="tab col m1.5"><a class="active" href="#tasks-1">Hello, World!</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-2">Variables</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-3">Functions</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-4">Events</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-5">Strings</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-6">Arrays / Strings</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-7">Conditionals</a></li>
-                                <li class="tab col m1.5"><a href="#tasks-8">Iteration</a></li>
+                            <h5 style="font-size: 18px;" class="center-align">
+                                Due to a bug in the materialize framework, tabs of four have been split to stop hiding task elements.
+                            </h5>
+                            
+                            <hr/>
+                            <ul class="tabs">
+                                <li class="tab col m3"><a class="active" href="#tasks-1">Hello, World!</a></li>
+                                <li class="tab col m3"><a href="#tasks-2">Variables</a></li>
+                                <li class="tab col m3"><a href="#tasks-3">Functions</a></li>
+                                <li class="tab col m3"><a href="#tasks-4">Events</a></li>
                             </ul>
+
                             <div id="tasks-1">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.createScript();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onHelloWorldClick();">
                                         Hello World
                                     </a>
                                 </div>
@@ -97,10 +100,10 @@
                             <div id="tasks-2">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.variablesOutput(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onVariablesOneClick();">
                                         Variables 1
                                     </a>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.createPerson(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onVariablesTwoClick();">
                                         Variables 2
                                     </a>
                                 </div>
@@ -109,10 +112,10 @@
                             <div id="tasks-3">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.squareNumber(5); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onFunctionsOneClick();">
                                         Functions 1
                                     </a>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.sumOfThree(1, 2, 3); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onFunctionsTwoClick();">
                                         Functions 2
                                     </a>
                                 </div>
@@ -121,19 +124,26 @@
                             <div id="tasks-4">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.incrementAge(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onEventsOneClick();">
                                         Events 1
                                     </a>
                                 </div>
                             </div>
+                            <hr/>
+                            <ul class="tabs">
+                                <li class="tab col m3"><a href="#tasks-5">Strings</a></li>
+                                <li class="tab col m3"><a href="#tasks-6">Arrays / Strings</a></li>
+                                <li class="tab col m3"><a href="#tasks-7">Conditionals</a></li>
+                                <li class="tab col m3"><a href="#tasks-8">Iteration</a></li>
+                            </ul>
                             
                             <div id="tasks-5">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.heSaidMyName(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onStringsOneClick();">
                                         Strings 1
                                     </a>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.concatStringNum(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onStringsTwoClick();">
                                         Strings 2
                                     </a>
                                 </div>
@@ -142,7 +152,7 @@
                             <div id="tasks-6">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.arrayStringsTask(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onArrayOneStringThreeClick();">
                                         Arrays 1 / Strings 3 
                                     </a>
                                 </div>
@@ -151,7 +161,7 @@
                             <div id="tasks-7">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.checkAge(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onConditionalsOneClick();">
                                         Conditionals 1
                                     </a>
                                 </div>
@@ -160,10 +170,10 @@
                             <div id="tasks-8">
                                 <div class="row center-align">
                                     <br>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.iterationOne(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onIterationOneClick();">
                                         Iteration 1
                                     </a>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL1.iterationTwo(); UtilityFunctions.scroll();">
+                                    <a class="waves-effect waves-light btn" onclick="LevelOneEvents.onIterationTwoClick();">
                                         Iteration 2
                                     </a>
                                 </div>
@@ -186,7 +196,6 @@
                         </div>
                     </div>
                 </div>
-                    
             </div>
         </main>
         <footer class="page-footer">

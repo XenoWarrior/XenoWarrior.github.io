@@ -1,5 +1,7 @@
+'use strict';
+
 var Vehicle = {
-    make: function(r, b, m, f) {
+    make: function (r, b, m, f) {
         var v = {
             reg: r,
             brand: b,
@@ -7,46 +9,44 @@ var Vehicle = {
             faults: f,
 
             checkedIn: true,
-            checkIn: function() {
+            checkIn: function () {
                 this.checkedIn = true;
             },
-            checkOut: function() {
+            checkOut: function () {
                 this.checkedIn = true;
             },
-            serialise: function() { 
+            serialise: function () { 
                 return "[" + this.reg + ", " + this.brand + ", " + this.model + ", " + this.faults + "]";
             }
         }
 
         return v;
     }
-}
-
+};
 
 var GarageSystem = {
     vehicleList: [],
 
-    addVehicle: function(reg, brand, model, faults) {
-        
+    addVehicle: function (reg, brand, model, faults) {
         var tempVehicle = Vehicle.make(reg, brand, model, faults);
-        $('#output').append("<p>Added vehicle: " + tempVehicle.serialise()  + "</p>");
+        $('#output').append("<p>Added vehicle: " + tempVehicle.serialise() + "</p>");
 
-        vehicleList.push(tempVehicle);
-    },
-    
-    checkInVehicle: function(id) {
-        vehicleList[id].checkIn();
+        this.vehicleList.push(tempVehicle);
     },
 
-    checkOutVehicle: function(id) {
-        vehicleList[id].checkOut();
+    checkInVehicle: function (id) {
+        this.vehicleList[id].checkIn();
     },
 
-    printInventory: function() {
+    checkOutVehicle: function (id) {
+        this.vehicleList[id].checkOut();
+    },
+
+    printInventory: function () {
 
     },
 
-    calculatePrice: function(id) {
+    calculatePrice: function (id) {
 
     }
-}
+};

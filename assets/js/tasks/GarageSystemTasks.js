@@ -1,38 +1,14 @@
 'use strict';
 
-var Vehicle = {
-    make: function (r, b, m, f) {
-        var v = {
-            reg: r,
-            brand: b,
-            model: m,
-            faults: f,
-
-            checkedIn: true,
-            checkIn: function () {
-                this.checkedIn = true;
-            },
-            checkOut: function () {
-                this.checkedIn = true;
-            },
-            serialise: function () { 
-                return `[${this.reg}, ${this.brand}, ${this.model}, ${this.faults}]`;
-            }
-        }
-
-        return v;
-    }
-};
-
 var GarageSystem = {
     vehicleList: {},
     uniqueId: 0,
 
-    addVehicle: function (reg, brand, model, faults) {
+    addVehicle: function (reg, brand, model, faults, OPTIONAL_TYPE) {
         var tempVehicle = Vehicle.make(reg, brand, model, faults);
 
         this.vehicleList[this.uniqueId] = tempVehicle;
-        this.debugPrint(`<p>Added vehicle: ${tempVehicle.serialise()}</p>`);
+        this.debugPrint(`<p>Added vehicle: ${tempVehicle.serialiseVehicle()}</p>`);
         this.uniqueId++;
     },
 
@@ -50,10 +26,14 @@ var GarageSystem = {
         this.vehicleList[id].checkOut();
     },
 
+    getInventory: function() {
+        return this.vehicleList;
+    },
+
     printInventory: function () {
-        if(UtilityFunctions.size(this.vehicleList) > 0) {
-            Object.keys(this.vehicleList).forEach(function(key) {
-                this.cmdPrint(`<p> >> Found vehicle: ${this.vehicleList[key].reg}, ${this.vehicleList[key].brand}, ${this.vehicleList[key].model}, ${this.vehicleList[key].faults}</p>`);
+        if(UtilityFunctions.size(this.getInventory()) > 0) {
+            Object.keys(this.getInventory()).forEach(function(key) {
+                this.cmdPrint(`<p> >> Found vehicle: ${this.getInventory()[key].serialiseVehicle()}</p>`);
             }, this);
         }
         else {
@@ -82,6 +62,37 @@ var GarageSystem = {
         $('#aicli_input').val("");
 
         switch(cmdParams[0]) {
+            case "create": 
+                this.debugPrint(`<p>-> Command: create</p>`);
+                this.debugPrint(`<p>--> has parameter '${cmdParams[1]}'</p>`);
+
+                if(cmdParams[2] && cmdParams[3] && cmdParams[4]) {
+                    this.debugPrint(`<p>---> has three valid parameters for [reg, brand, model]</p>`);
+
+                    switch(cmdParams[1]) {
+                        case "car":
+                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_CAR');
+                        break;
+                        
+                        case "motorcycle":
+                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_MOTORCYLE');
+                        break;
+                        
+                        case "van":
+                            this.debugPrint(`<p>--> has valid parameter '${cmdParams[1]}'</p>`);
+                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], [], 'TYPE_VAN');
+                        break;
+    
+                        default:
+                            this.debugPrint(`<p>--> has invalid parameter '${cmdParams[1]}'</p>`);
+                            this.cmdPrint(`<p> >> Command: [create], Available Parameters: [car, motorcycle, van].</p>`);
+                        break;
+                    }
+                }
+            break;
+
             case "print":
                 this.debugPrint(`<p>-> Command: print</p>`);
                 this.debugPrint(`<p>--> has parameter '${cmdParams[1]}'</p>`);
@@ -105,7 +116,7 @@ var GarageSystem = {
 
             case 'help': 
                 this.debugPrint(`<p>-> Command: print</p>`);
-                this.cmdPrint(`<p> >> Available commands: [print, help].</p>`);
+                this.cmdPrint(`<p> >> Available commands: [create, print, help].</p>`);
             break;
 
             default:

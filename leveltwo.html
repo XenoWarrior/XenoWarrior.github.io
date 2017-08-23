@@ -11,7 +11,9 @@
 
         <script src="./assets/js/LevelTwoTasks.js"></script>
         <script src="./assets/js/UtilityFunctions.js"></script>
+        <script src="./assets/js/EventListeners.js"></script>
         
+        <!-- Materialize init -->
         <script type="text/javascript">
             $(document).ready(function(){
                 $('ul.tabs').tabs();
@@ -76,7 +78,7 @@
                                             <input value="Buzz" placeholder="Divisible 5 Text" id="l2_fb_5text" type="text" class="validate">
                                         </div>
                                     </div>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationThree($('#l2_fb_maxnum').val(), $('#l2_fb_3text').val(), $('#l2_fb_5text').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onFizzBuzzTestClick();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-2">
@@ -96,7 +98,7 @@
                                             <input value="100" placeholder="Max Number" id="l2_i4_maxnum" type="number" class="validate">
                                         </div>
                                     </div>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.iterationFour($('#l2_i4_maxnum').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onIterationFourClick();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-3">
@@ -119,7 +121,7 @@
                                             <input value="abcXXXabc" placeholder="Enter the string value to check..." id="l2_s4_string" type="text" class="validate">
                                         </div>
                                     </div>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.stringsFour($('#l2_s4_string').val()); UtilityFunctions.scroll();">Run Test</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onStringsFourClick();">Run Test</a>
                                 </div>
                             </div>
                             <div id="test-swipe-4">
@@ -130,9 +132,9 @@
                                         <div class="input-field col s12">
                                             <input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." placeholder="Enter the string value to check..." id="l2_d1_string" type="text" class="validate">
                                         </div>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.createParagraph(); UtilityFunctions.scroll();">Create Paragraph</a>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.saveParagraph($('#l2_d1_string').val()); UtilityFunctions.scroll();">Save Paragraph</a>
-                                        <a class="waves-effect waves-light btn" onclick="WorkBookL2.deleteParagraph(); UtilityFunctions.scroll();">Delete Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onAddParagraphClick();">Create Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onSaveParagraphClick();">Save Paragraph</a>
+                                        <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onDeleteParagraph();">Delete Paragraph</a>
                                     </div>
                                 </div>
                             </div>
@@ -140,9 +142,9 @@
                                 <h3 class="center-align">JSON 1</h3>
                                 <div class="row center-align">
                                     <div class="row">
-                                        <div id="render-target-heroes" class="input-field col s12"></div>
+                                        <div id="render-target-heroes" class="input-field col s12 left-align"></div>
                                     </div>
-                                    <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonOne(); UtilityFunctions.scroll();">Get Super Heroes</a>
+                                    <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onGetHeroesClick();">Get Super Heroes</a>
                                 </div>
                             </div>
                             <div id="test-swipe-6">
@@ -154,12 +156,12 @@
                                             <input placeholder="Enter a search term here..." id="l2_searchterm" type="text" class="validate" />
                                         </div>
                                         <p>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwo($('#l2_searchterm').val()); UtilityFunctions.scroll();">Get Kings</a>
+                                            <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onGetKingsClick();">Get Kings</a>
                                         </p>
                                         <p>
                                             <br/>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwoPrevKing(); UtilityFunctions.scroll();">Prev</a>
-                                            <a class="waves-effect waves-light btn" onclick="WorkBookL2.jsonTwoNextKing(); UtilityFunctions.scroll();">Next</a>
+                                            <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onNextResultClick();">Prev</a>
+                                            <a class="waves-effect waves-light btn" onclick="LevelTwoEvents.onPreviousResultClick();">Next</a>
                                         </p>
                                     </div>
                                 </div>

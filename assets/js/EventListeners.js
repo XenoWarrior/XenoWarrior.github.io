@@ -1,16 +1,5 @@
 'use strict';
 
-var GarageEvents = {
-    onAddVehicleClick: () => {
-        GarageSystem.addVehicle($('#l2_gs_reg').val(), $('#l2_gs_brand').val(), $('#l2_gs_model').val(), 'No Faults');
-        UtilityFunctions.scroll();
-    },
-    onAddFaultClick: () => {
-        GarageSystem.addFault();
-        UtilityFunctions.scroll();
-    }
-};
-
 var LevelOneEvents = {
     onSetClick: () => {
         WorkBookL1.createPersonByForm($('#l1_f3_e2_name').val(), $('#l1_f3_e2_age').val(), $('#l1_f3_e2_job').val());
@@ -103,8 +92,27 @@ var LevelTwoEvents = {
     onNextResultClick: () => {
         WorkBookL2.jsonTwoPrevKing(); UtilityFunctions.scroll();
     },
-
     onPreviousResultClick: () => {
         WorkBookL2.jsonTwoNextKing(); UtilityFunctions.scroll();
+    }
+};
+
+var GarageEvents = {
+    onAddVehicleClick: () => {
+        GarageSystem.addVehicle($('#l2_gs_reg').val(), $('#l2_gs_brand').val(), $('#l2_gs_model').val(), 'No Faults');
+        UtilityFunctions.scroll();
+    },
+    onAddFaultClick: () => {
+        GarageSystem.addFault();
+        UtilityFunctions.scroll();
+    },
+    onPrintInventoryClick: () => {
+        GarageSystem.printInventory();
+        UtilityFunctions.scroll();
+    },
+
+    sendCommand: () => {
+        GarageSystem.handleCommand($('#aicli_input').val());
+        UtilityFunctions.scroll('#admin-output');
     }
 };

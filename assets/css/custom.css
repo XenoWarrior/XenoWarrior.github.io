@@ -7,8 +7,13 @@ main {
     flex: 1 0 auto;
 }
 
-#output {
+#output, #admin-output {
 	height: 320px;
 	max-height: 320px;
 	overflow: auto;
+}
+
+#admin-output {
+    border: 1px solid #000000;
+    text-align: left;
 }

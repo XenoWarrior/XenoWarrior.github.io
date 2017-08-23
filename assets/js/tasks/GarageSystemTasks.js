@@ -76,43 +76,73 @@ var GarageSystem = {
         switch(cmdParams[0]) {
             case "create": 
                 this.debugPrint(`-> Command: create`);
-                this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
-
+                this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
                 if(cmdParams[1] && cmdParams[2] && cmdParams[3] && cmdParams[4]) {
-                    this.debugPrint(`---> has three valid parameters for [reg, make, model]`);
+                    this.debugPrint(`---> has three valid parameters for [type] {registration, make, model}`);
 
                     switch(cmdParams[1]) {
                         case "car":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
                             this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Car');
+                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
                         break;
                         
                         case "motorcycle":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
                             this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Motorcycle');
+                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
                         break;
                         
                         case "van":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
                             this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Van');
+                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
                         break;
 
                         case "unknown":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
                             this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Unknown Type');
+                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
                         break;
     
                         default:
-                            this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
-                            this.cmdPrint(` >> Command: [create], Available Types: [car, motorcycle, van, unknown].`);
+                            this.debugPrint(`--> has invalid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+                            this.cmdPrint(` >> Command: [create][Unknown Type], Available Types: [car, motorcycle, van, unknown].`);
+                            this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                         break;
                     }
                 }
                 else {
-                    this.cmdPrint(` >> Command: [create], Required Parameters: [type, registration, make, model].`);
+                    this.cmdPrint(` >> Command: [create], Usage: create [type] {values ...}, Available Types: [car, motorcycle, van, unknown], Available Values: {registration, make, model}.`);
+                    this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                 }
 
                 GarageEvents.onInventoryClick();
+            break;
+
+            case 'add':
+                this.debugPrint(`-> Command: add`);
+                this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
+                
+                if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
+                    this.debugPrint(`---> has two valid parameters for [id, fault]`);
+                    switch(cmdParams[1]) {
+                        case 'fault':
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+
+                        break;
+
+                        default:
+                            this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
+                            this.cmdPrint(` >> Command: [add][fault], Required Parameters: {id, fault}.`);
+                            this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                        break;
+                    }
+                }
+                else {
+                    this.cmdPrint(` >> Command: [add], Available Subcommands: [fault].`);
+                    this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                }
             break;
 
             case "print":
@@ -132,6 +162,7 @@ var GarageSystem = {
                     default:
                         this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
                         this.cmdPrint(` >> Command: [print], Available Parameters: [inventory, vehicle].`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                     break;
                 }
             break;
@@ -139,6 +170,7 @@ var GarageSystem = {
             case 'help': 
                 this.debugPrint(`-> Command: print`);
                 this.cmdPrint(` >> Available commands: [create, print, help].`);
+                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
             break;
 
             default:

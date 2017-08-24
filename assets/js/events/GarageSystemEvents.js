@@ -71,10 +71,11 @@ var GarageEvents = {
                             <li class="collection-item"><strong>Registration Number</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].reg}</span></li>
                             <li class="collection-item"><strong>Vehicle Make (Model)</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].make} (${GarageSystem.getInventory()[key].model})</span></li>
                             <li class="collection-item"><strong>Known Faults</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].faults}</span></li>
+                            <li class="collection-item"><strong>Status</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].checkedIn ? "checked In" : "Checked Out"}</span></li>
                         </ul>
                         <div class="row center-align">
-                            <a class="waves-effect waves-light btn" onclick="function(){};">Check-In</a>
-                            <a class="waves-effect waves-light btn" onclick="function(){};">Check-Out</a>
+                            <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkIn(); GarageEvents.onInventoryClick();">Check-In</a>
+                            <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkOut(); GarageEvents.onInventoryClick();">Check-Out</a>
                             <a class="waves-effect waves-light btn" onclick="$('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add Faults</a>
                             <a class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
                             <a class="waves-effect waves-light btn" onclick="function(){};">Delete</a>

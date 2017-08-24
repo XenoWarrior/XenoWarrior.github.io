@@ -16,7 +16,7 @@ var Vehicle = {
                     this.checkedIn = true;
                 },
                 checkOut: function () {
-                    this.checkedIn = true;
+                    this.checkedIn = false;
                 },
                 setType: function(val) {
                     this.type = val;

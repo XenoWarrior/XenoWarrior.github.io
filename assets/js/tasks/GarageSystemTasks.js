@@ -369,12 +369,7 @@ var GarageSystem = {
 
                                 if(this.getInventory()[parseInt(cmdParams[2])]) {
                                     let v = this.getInventory()[parseInt(cmdParams[2])];
-
-                                    let finalPrice = 0;
-                    
-                                    if(v.faults[0] != "None") {
-                                        finalPrice = v.faults.length * 50;
-                                    }
+                                    let finalPrice = getBillPrice(parseInt(cmdParams[2]));
                                         
                                     this.cmdPrint(` >> Total Price: ${finalPrice} GBP`);
                                     this.cmdPrint(` >> Fixed Faults: ${v.faults}`);

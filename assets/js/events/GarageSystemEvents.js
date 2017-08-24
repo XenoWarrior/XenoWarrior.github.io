@@ -41,27 +41,23 @@ var GarageEvents = {
 
         UtilityFunctions.scroll();
     },
+
     onAddFaultClick: () => {
         GarageSystem.addFault();
         UtilityFunctions.scroll();
     },
+
     onPrintInventoryClick: () => {
         GarageSystem.printInventory();
         UtilityFunctions.scroll();
     },
-
-    calculatePrice: function (key) {
-    },
+    
 
     onInventoryClick: () => {
         $('#inventory-render-target').text("");
         if(Object.keys(GarageSystem.getInventory()).length > 0) {
             Object.keys(GarageSystem.getInventory()).forEach((key) => {
-                let finalPrice = 0;
-
-                if(GarageSystem.getInventory()[key].faults[0] != "None") {
-                    finalPrice = GarageSystem.getInventory()[key].faults.length * 50;
-                }
+                let finalPrice = getBillPrice(key);
 
                 $('#inventory-render-target').append(`
                     <li class="collection-item">

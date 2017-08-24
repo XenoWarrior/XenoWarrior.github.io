@@ -313,7 +313,7 @@ var GarageSystem = {
                                 this.cmdPrint(" >> Usage: [remove] [subcommand] {values ...}.");
                                 this.cmdPrint(" >> Available Subcommands (one of the following): [fault].");
                                 this.cmdPrint(" >> Required Values (all of the following): {vehicle_id, fault_index_id}.");
-                                this.cmdPrint(" >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.");
+                                this.cmdPrint(" >> Usage Example: \"remove fault 1 1\" - this will remove the first fault from the first vehicle.");
                                 this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
                         break;

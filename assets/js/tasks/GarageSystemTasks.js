@@ -125,12 +125,12 @@ var GarageSystem = {
         for(let i = 0; i < commandList.length; i++) {
             let cmd = commandList[i].toLowerCase();
 
-            if(raw == "") {
-                continue;
-            }
-
             if(cmd.startsWith(" ")) {
                 cmd = cmd.substring(1);
+            }
+
+            if(cmd == "") {
+                continue;
             }
 
             this.debugPrint(`Execute: ${cmd}`);
@@ -188,13 +188,68 @@ var GarageSystem = {
                         }
                     }
                     else {
-                        this.cmdPrint(` >> Command: [register], Usage: register [type] {values ...}.`);
+                        this.cmdPrint(` >> Command: [register].`);
+                        this.cmdPrint(` >> Usage: register [type] {values ...}.`);
                         this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown]. `);
                         this.cmdPrint(` >> Required Values (all of the following): {registration, make, model}.`);
                         this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                     }
 
                     GarageEvents.onInventoryClick();
+                break;
+                
+                case 'unregister':
+                    this.debugPrint(`-> Command: unregister`);
+                    this.debugPrint(`--> has parameter(s) '${cmdParams[1]}'`);
+
+                    if(cmdParams[1]) {
+                        this.debugPrint(`---> has valid parameters for {id}`);
+                        this.delVehicle(parseInt(cmdParams[1]));
+                    }
+                    else {
+                        this.cmdPrint(` >> Command: [unregister].`);
+                        this.cmdPrint(` >> Usage: register {value}.`);
+                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                    }
+
+                    GarageEvents.onInventoryClick();
+                break;
+
+                case 'check':
+                    this.debugPrint(`-> Command: check`);
+                    this.debugPrint(`--> has parameter(s) '${cmdParams[1]}'`);
+
+                    if(cmdParams[1] && cmdParams[2]) {
+                        switch(cmdParams[1]) {
+                            case 'in':
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    this.getInventory()[parseInt(cmdParams[2])].checkIn();
+                                    this.cmdPrint(this.getInventory()[parseInt(cmdParams[2])].checkedIn ? ">> Vehicle has been checked in." : " >> Vehicle has been checked out.");
+                                }
+                                else { 
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
+                            break;
+                            
+                            case 'out':
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    this.getInventory()[parseInt(cmdParams[2])].checkOut();
+                                    this.cmdPrint(this.getInventory()[parseInt(cmdParams[2])].checkedIn ? ">> Vehicle has been checked in." : " >> Vehicle has been checked out.");
+                                }
+                                else { 
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
+                            break;
+                        }
+                    }
+                    else{ 
+                        this.cmdPrint(` >> Command: [check].`);
+                        this.cmdPrint(` >> Usage: register {value}.`);
+                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                    }
+
                 break;
 
                 case 'add':

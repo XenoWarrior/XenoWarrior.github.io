@@ -76,7 +76,12 @@ var GarageEvents = {
                         <div class="row center-align">
                             <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkIn(); GarageEvents.onInventoryClick();">Check-In</a>
                             <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkOut(); GarageEvents.onInventoryClick();">Check-Out</a>
+                        </div>
+                        <div class="row center-align">
                             <a class="waves-effect waves-light btn" onclick="$('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add Faults</a>
+                            <a class="waves-effect waves-light btn" onclick="$('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('open');">Remove Faults</a>
+                        </div>
+                        <div class="row center-align">
                             <a class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
                             <a class="waves-effect waves-light btn" onclick="GarageSystem.delVehicle(${GarageSystem.getInventory()[key].id});">Delete</a>
                         </div>
@@ -100,23 +105,50 @@ var GarageEvents = {
                     </div>
                     
                     <div id="modal-addfault-${GarageSystem.getInventory()[key].id}" class="modal bottom-sheet">
-                    <div class="modal-content">
-                        <h4>Add Fault</h4>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input placeholder="Enter description here..." id="l2_gs_fault_${GarageSystem.getInventory()[key].id}" type="text" class="validate" />
+                        <div class="modal-content">
+                            <h4>Add Faults</h4>
+                            <div class="row">
+                                <p>
+                                    When 'Add' is pressed, it will add the fault and show the form again to add more faults.<br/>
+                                    Click 'Close' when done adding faults.
+                                </p>
+                                <div class="input-field col s12">
+                                    <input placeholder="Enter description here..." id="l2_gs_fault_${GarageSystem.getInventory()[key].id}" type="text" class="validate" />
+                                </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                        
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault(${GarageSystem.getInventory()[key].id}, $('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val()); $('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault(${GarageSystem.getInventory()[key].id}, $('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val())">Add</a>
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                    
+                    
+                    <div id="modal-delfault-${GarageSystem.getInventory()[key].id}" class="modal bottom-sheet">
+                        <div class="modal-content">
+                            <h4>Remove Faults</h4>
+                            <div class="row">
+                                <p>
+                                    When 'Delete' is pressed, it will delete the fault and show the form again to delete more faults.<br/>
+                                    Click 'Close' when done deleting faults.
+                                </p>
+                                <ul id="fault-target-${GarageSystem.getInventory()[key].id}" class="collection"></ul> 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                        </div>
                     </div>
-                </div>
                 `);
+                
+                for(let i = 0; i < GarageSystem.getInventory()[key].faults.length; i++) {
+                    $(`#fault-target-${GarageSystem.getInventory()[key].id}`).append(`<li class="collection-item"><strong>${GarageSystem.getInventory()[key].faults[i]}</strong><span style="float: right;"><div class="waves-effect waves-light btn-small" onclick="$('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('close'); GarageSystem.delFault(${GarageSystem.getInventory()[key].id}, ${i+1}); GarageEvents.onInventoryClick(); $('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('open');">Delete</div></span></li>`);
+                }
                 
                 $(`#modal-${GarageSystem.getInventory()[key].id}`).modal();
                 $(`#modal-addfault-${GarageSystem.getInventory()[key].id}`).modal();
+                $(`#modal-delfault-${GarageSystem.getInventory()[key].id}`).modal();
             });
         }
         else {

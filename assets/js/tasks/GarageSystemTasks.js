@@ -9,7 +9,7 @@ var GarageSystem = {
     vanFactory: Vehicle.factory("Van"),
     unknownFactory: Vehicle.factory("Unknown Type"),
 
-    addVehicle: function (maker, reg, make, model, faults) {
+    addVehicle  (maker, reg, make, model, faults) {
         let tempVehicle = maker(this.uniqueId, reg, make, model, faults);
 
         this.vehicleList[this.uniqueId] = tempVehicle;
@@ -17,7 +17,7 @@ var GarageSystem = {
         this.uniqueId++;
     },
 
-    delVehicle: function(id) {
+    delVehicle (id) {
         if(this.getInventory()[id]) {
             delete this.getInventory()[parseInt(id)];
             this.debugPrint(` >> Vehicle removed.`);
@@ -29,8 +29,8 @@ var GarageSystem = {
         }
     },
 
-    addFault: function(id, fault) {
-        if(fault != "none") {
+    addFault (id, fault) {
+        if(fault != "none" && fault) {
             let vehicleID = parseInt(id);
             
             this.debugPrint(`Adding fault to vehicle ID ${vehicleID}, the description is ${fault}`);
@@ -51,7 +51,7 @@ var GarageSystem = {
         }
     },
 
-    delFault: function(id, fault) {
+    delFault (id, fault) {
         let vehicleID = parseInt(id);
         let faultID = parseInt(fault) - 1;
 
@@ -80,19 +80,19 @@ var GarageSystem = {
         }
     },
 
-    checkInVehicle: function (id) {
+    checkInVehicle  (id) {
         this.vehicleList[id].checkIn();
     },
 
-    checkOutVehicle: function (id) {
+    checkOutVehicle  (id) {
         this.vehicleList[id].checkOut();
     },
 
-    getInventory: function() {
+    getInventory () {
         return this.vehicleList;
     },
 
-    printInventory: function () {
+    printInventory () {
         if(UtilityFunctions.size(this.getInventory()) > 0) {
             Object.keys(this.getInventory()).forEach(function(key) {
                 this.cmdPrint(` >> Found vehicle: REFERENCE ID: ${this.getInventory()[key].id} | ${this.getInventory()[key].serialiseVehicle()}`);
@@ -102,12 +102,8 @@ var GarageSystem = {
             this.cmdPrint(` >> No vehicles found.`);
         }
     },
-
-    calculatePrice: function (id) {
-
-    },
     
-    handleCommand: function(raw) {
+    handleCommand (raw) {
         if(raw == "") {
             return;
         }

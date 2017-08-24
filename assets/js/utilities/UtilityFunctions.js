@@ -1,8 +1,9 @@
 var UtilityFunctions = { 
-    clear: function() {
+    clear () {
         $('#output').text("");
     },
-    scroll: function(selector) {
+
+    scroll (selector) {
 
         if(selector) {
             var element = $(selector);
@@ -13,7 +14,8 @@ var UtilityFunctions = {
         var height = element[0].scrollHeight;
         element.scrollTop(height);
     },
-    size: function(obj) {
+    
+    size (obj) {
         var size = 0, key;
         for (key in obj) {
             if (obj.hasOwnProperty(key)) size++;

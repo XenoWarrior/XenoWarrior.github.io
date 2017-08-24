@@ -1,58 +1,71 @@
 'use strict';
 
 var LevelOneEvents = {
-    onSetClick: () => {
+    onSetClick() {
         WorkBookL1.createPersonByForm($('#l1_f3_e2_name').val(), $('#l1_f3_e2_age').val(), $('#l1_f3_e2_job').val());
         UtilityFunctions.scroll();
     },
-    onGetClick: () => {
+    
+    onGetClick() {
         WorkBookL1.getPersonByForm();
         UtilityFunctions.scroll();
     },
-    onHelloWorldClick: () => {
+    
+    onHelloWorldClick() {
         WorkBookL1.createScript();
     },
-    onVariablesOneClick: () => {
+
+    onVariablesOneClick() {
         WorkBookL1.variablesOutput();
         UtilityFunctions.scroll();
     },
-    onVariablesTwoClick: () => {
+
+    onVariablesTwoClick() {
         WorkBookL1.createPerson();
         UtilityFunctions.scroll();
     },
-    onFunctionsOneClick: () => {
+
+    onFunctionsOneClick() {
         WorkBookL1.squareNumber(5);
         UtilityFunctions.scroll();
     },
-    onFunctionsTwoClick: () => {
+
+    onFunctionsTwoClick() {
         WorkBookL1.sumOfThree(1, 2, 3);
         UtilityFunctions.scroll();
     },
-    onEventsOneClick: () => {
+
+    onEventsOneClick() {
         WorkBookL1.incrementAge();
         UtilityFunctions.scroll();
     },
-    onStringsOneClick: () => {
+
+    onStringsOneClick() {
         WorkBookL1.heSaidMyName();
         UtilityFunctions.scroll();
     },
-    onStringsTwoClick: () => {
+
+    onStringsTwoClick() {
         WorkBookL1.concatStringNum();
         UtilityFunctions.scroll();
     },
-    onArrayOneStringThreeClick: () => {
+
+    onArrayOneStringThreeClick() {
         WorkBookL1.arrayStringsTask();
         UtilityFunctions.scroll();
     },
-    onConditionalsOneClick: () => {
+
+    onConditionalsOneClick() {
         WorkBookL1.checkAge(); 
         UtilityFunctions.scroll();
     },
-    onIterationOneClick: () => {
+
+    onIterationOneClick() {
         WorkBookL1.iterationOne();
         UtilityFunctions.scroll();
     },
-    onIterationTwoClick: () => {
+
+    onIterationTwoClick() {
         WorkBookL1.iterationTwo();
         UtilityFunctions.scroll();
     },

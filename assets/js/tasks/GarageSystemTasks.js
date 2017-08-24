@@ -30,7 +30,7 @@ var GarageSystem = {
     },
 
     addFault: function(id, fault) {
-        if(fault != "none") {
+        if(fault != "none" && fault) {
             let vehicleID = parseInt(id);
             
             this.debugPrint(`Adding fault to vehicle ID ${vehicleID}, the description is ${fault}`);

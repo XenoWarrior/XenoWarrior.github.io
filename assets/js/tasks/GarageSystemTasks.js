@@ -402,7 +402,7 @@ var GarageSystem = {
                         break;
 
                         default:
-                            this.cmdPrint(" >> Unknown command: ${cmd}");
+                            this.cmdPrint(` >> Unknown command: ${cmd}`);
                         break;
                     }
                 }

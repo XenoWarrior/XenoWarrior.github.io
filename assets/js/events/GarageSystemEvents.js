@@ -78,7 +78,7 @@ var GarageEvents = {
                             <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('open');">Remove Faults</a>
                         </div>
                         <div class="row center-align">
-                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$("#modal-${GarageSystem.getInventory()[key].id}").modal("open");">Get Bill</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
                             <a style="width: 180px;" class="waves-effect waves-light btn" onclick="GarageSystem.delVehicle(${GarageSystem.getInventory()[key].id});">Delete</a>
                         </div>
                     </li>

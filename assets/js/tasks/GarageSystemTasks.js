@@ -99,7 +99,7 @@ var GarageSystem = {
             }, this);
         }
         else {
-            this.cmdPrint(` >> No vehicles found.`);
+            this.cmdPrint("` >> No vehicles found.");
         }
     },
     
@@ -170,18 +170,18 @@ var GarageSystem = {
                                     default:
                                         this.debugPrint(`--> has invalid parameter(s) "${cmdParams[1]}", "${cmdParams[2]}", "${cmdParams[3]}", "${cmdParams[4]}"`);
 
-                                        this.cmdPrint(` >> Command: [register][Unknown Type].`);
-                                        this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown].`);
-                                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                        this.cmdPrint(" >> Command: [register][Unknown Type].");
+                                        this.cmdPrint(" >> Available Types (one of the following): [car, motorcycle, van, unknown].");
+                                        this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                     break;
                                 }
                             }
                             else {
-                                this.cmdPrint(` >> Command: [register].`);
-                                this.cmdPrint(` >> Usage: register [type] {values ...}.`);
-                                this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown]. `);
-                                this.cmdPrint(` >> Required Values (all of the following): {registration, make, model}.`);
-                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                this.cmdPrint(" >> Command: [register].");
+                                this.cmdPrint(" >> Usage: register [type] {values ...}.");
+                                this.cmdPrint(" >> Available Types (one of the following): [car, motorcycle, van, unknown]. ");
+                                this.cmdPrint(" >> Required Values (all of the following): {registration, make, model}.");
+                                this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
 
                             GarageEvents.onInventoryClick();
@@ -196,10 +196,10 @@ var GarageSystem = {
                                 this.delVehicle(parseInt(cmdParams[1]));
                             }
                             else {
-                                this.cmdPrint(` >> Command: [unregister].`);
-                                this.cmdPrint(` >> Usage: unregister {value}.`);
-                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
-                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                this.cmdPrint(" >> Command: [unregister].");
+                                this.cmdPrint(" >> Usage: unregister {value}.");
+                                this.cmdPrint(" >> Required Values (all of the following): {vehicle_id}.");
+                                this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
 
                             GarageEvents.onInventoryClick();
@@ -217,7 +217,7 @@ var GarageSystem = {
                                             this.cmdPrint(this.getInventory()[parseInt(cmdParams[2])].checkedIn ? ">> Vehicle has been checked in." : " >> Vehicle has been checked out.");
                                         }
                                         else { 
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     break;
                                     
@@ -227,27 +227,27 @@ var GarageSystem = {
                                             this.cmdPrint(this.getInventory()[parseInt(cmdParams[2])].checkedIn ? ">> Vehicle has been checked in." : " >> Vehicle has been checked out.");
                                         }
                                         else { 
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     break;
                                 }
                             }
                             else{ 
-                                this.cmdPrint(` >> Command: [check].`);
-                                this.cmdPrint(` >> Usage: check [type] {value}.`);
-                                this.cmdPrint(` >> Available Types (one of the following): [in, out].`);
-                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
-                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                this.cmdPrint(" >> Command: [check].");
+                                this.cmdPrint(" >> Usage: check [type] {value}.");
+                                this.cmdPrint(" >> Available Types (one of the following): [in, out].");
+                                this.cmdPrint(" >> Required Values (all of the following): {vehicle_id}.");
+                                this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
 
                         break;
 
                         case "add":
-                            this.debugPrint(`-> Command: add`);
+                            this.debugPrint("-> Command: add");
                             this.debugPrint(`--> has parameter(s) "${cmdParams[1]}", "${cmdParams[3]}", "${cmdParams[3]}"`);
                             
                             if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
-                                this.debugPrint(`---> has two valid parameters for [id, fault]`);
+                                this.debugPrint("---> has two valid parameters for [id, fault]");
 
                                 switch(cmdParams[1]) {
                                     case "fault":
@@ -255,36 +255,36 @@ var GarageSystem = {
 
                                         if(this.getInventory()[parseInt(cmdParams[2])]) {
                                             this.addFault(parseInt(cmdParams[2]), cmdParams[3]);
-                                            this.cmdPrint(` >> Fault has been added.`);
+                                            this.cmdPrint(" >> Fault has been added.");
                                         }
                                         else {
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     break;
 
                                     default:
                                         this.debugPrint(`--> has invalid parameter "${cmdParams[1]}"`);
-                                        this.cmdPrint(` >> Command: [add] [fault].`);
-                                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, vehicle_fault}.`);
-                                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                        this.cmdPrint(" >> Command: [add] [fault].");
+                                        this.cmdPrint(" >> Required Values (all of the following): {vehicle_id, vehicle_fault}.");
+                                        this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                     break;
                                 }
                             }
                             else {
-                                this.cmdPrint(` >> Command: [add].`);
-                                this.cmdPrint(` >> Usage: [add] [subcommand] {values ...}.`);
-                                this.cmdPrint(` >> Available Subcommands (one of the following): [fault].`);
-                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, vehicle_fault}.`);
-                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                this.cmdPrint(" >> Command: [add].");
+                                this.cmdPrint(" >> Usage: [add] [subcommand] {values ...}.");
+                                this.cmdPrint(" >> Available Subcommands (one of the following): [fault].");
+                                this.cmdPrint(" >> Required Values (all of the following): {vehicle_id, vehicle_fault}.");
+                                this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
                         break;
 
                         case "remove":
-                            this.debugPrint(`-> Command: remove`);
+                            this.debugPrint("-> Command: remove");
                             this.debugPrint(`--> has parameter(s) "${cmdParams[1]}", "${cmdParams[2]}", "${cmdParams[3]}"`);
                             
                             if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
-                                this.debugPrint(`---> has two valid parameters for [vehicle_id, fault_index_id]`);
+                                this.debugPrint("---> has two valid parameters for [vehicle_id, fault_index_id]");
                                 switch(cmdParams[1]) {
                                     case "fault":
                                         this.debugPrint(`--> has valid parameter(s) "${cmdParams[1]}", "${cmdParams[3]}", "${cmdParams[3]}"`);
@@ -292,34 +292,34 @@ var GarageSystem = {
                                         if(this.getInventory()[parseInt(cmdParams[2])]) {
                                             this.delFault(parseInt(cmdParams[2]), parseInt(cmdParams[3]));
                                             
-                                            this.cmdPrint(` >> Fault has been removed.`);
+                                            this.cmdPrint(" >> Fault has been removed.");
                                         }
                                         else {
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     break;
 
                                     default:
                                         this.debugPrint(`--> has invalid parameter "${cmdParams[1]}"`);
-                                        this.cmdPrint(` >> Command: [remove] [fault].`);
-                                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, fault_index_id}.`);
-                                        this.cmdPrint(` >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.`);
-                                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                        this.cmdPrint(" >> Command: [remove] [fault].");
+                                        this.cmdPrint(" >> Required Values (all of the following): {vehicle_id, fault_index_id}.");
+                                        this.cmdPrint(" >> Usage Example: \"remove fault 1 1\" - this will remove the first fault from the first vehicle.");
+                                        this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                     break;
                                 }
                             }
                             else {
-                                this.cmdPrint(` >> Command: [remove].`);
-                                this.cmdPrint(` >> Usage: [remove] [subcommand] {values ...}.`);
-                                this.cmdPrint(` >> Available Subcommands (one of the following): [fault].`);
-                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, fault_index_id}.`);
-                                this.cmdPrint(` >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.`);
-                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                this.cmdPrint(" >> Command: [remove].");
+                                this.cmdPrint(" >> Usage: [remove] [subcommand] {values ...}.");
+                                this.cmdPrint(" >> Available Subcommands (one of the following): [fault].");
+                                this.cmdPrint(" >> Required Values (all of the following): {vehicle_id, fault_index_id}.");
+                                this.cmdPrint(" >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.");
+                                this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                             }
                         break;
 
                         case "print":
-                            this.debugPrint(`-> Command: print`);
+                            this.debugPrint("-> Command: print");
                             this.debugPrint(`--> has parameter "${cmdParams[1]}"`);
                             switch(cmdParams[1]) {
                                 case "inventory":
@@ -341,14 +341,14 @@ var GarageSystem = {
                                             this.cmdPrint(` >> Vehicle Faults: ${v.faults}`);
                                         }
                                         else {
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     }
                                     else {
-                                        this.cmdPrint(` >> Command: [print] [vehicle].`);
-                                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
-                                        this.cmdPrint(` >> Usage Example: "print vehicle 1" - this show the vehicle with the ID 1.`);
-                                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                        this.cmdPrint(" >> Command: [print] [vehicle].");
+                                        this.cmdPrint(" >> Required Values (all of the following): {vehicle_id}.");
+                                        this.cmdPrint(" >> Usage Example: \"print vehicle 1\" - this show the vehicle with the ID 1.");
+                                        this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                     }
 
                                 break;
@@ -364,17 +364,17 @@ var GarageSystem = {
                                                 
                                             this.cmdPrint(` >> Total Price: ${finalPrice} GBP`);
                                             this.cmdPrint(` >> Fixed Faults: ${v.faults}`);
-                                            this.cmdPrint(` >> Bill Date: 00/00/0000`);
+                                            this.cmdPrint(" >> Bill Date: 00/00/0000");
                                         }
                                         else {
-                                            this.cmdPrint(` >> Vehicle not found.`);
+                                            this.cmdPrint(" >> Vehicle not found.");
                                         }
                                     }
                                     else {
-                                        this.cmdPrint(` >> Command: [print] [bill].`);
-                                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
-                                        this.cmdPrint(` >> Usage Example: "print bill 1" - this show the bill for the vehicle with the ID 1.`);
-                                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                        this.cmdPrint(" >> Command: [print] [bill].");
+                                        this.cmdPrint(" >> Required Values (all of the following): {vehicle_id}.");
+                                        this.cmdPrint(" >> Usage Example: \"print bill 1\" - this show the bill for the vehicle with the ID 1.");
+                                        this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                     }
 
                                 break;
@@ -382,9 +382,9 @@ var GarageSystem = {
                                 default:
                                     this.debugPrint(`--> has invalid parameter "${cmdParams[1]}"`);
 
-                                    this.cmdPrint(` >> Command: [print].`);
-                                    this.cmdPrint(` >> Available Parameters: [inventory, vehicle, bill].`);
-                                    this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                                    this.cmdPrint(" >> Command: [print].");
+                                    this.cmdPrint(" >> Available Parameters: [inventory, vehicle, bill].");
+                                    this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                                 break;
                             }
                         break;
@@ -394,15 +394,15 @@ var GarageSystem = {
                         break;
 
                         case "help": 
-                            this.debugPrint(`-> Command: help`);
+                            this.debugPrint("-> Command: help");
 
-                            this.cmdPrint(` >> Command: [help].`);
-                            this.cmdPrint(` >> Available commands: [register, unregister, add, remove, check, print, clear, help].`);
-                            this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                            this.cmdPrint(" >> Command: [help].");
+                            this.cmdPrint(" >> Available commands: [register, unregister, add, remove, check, print, clear, help].");
+                            this.cmdPrint(" >> Exclude the [] and {} brackets from your commands.");
                         break;
 
                         default:
-                            this.cmdPrint(` >> Unknown command: ${cmd}`);
+                            this.cmdPrint(" >> Unknown command: ${cmd}");
                         break;
                     }
                 }

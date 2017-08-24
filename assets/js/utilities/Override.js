@@ -1,3 +1,5 @@
+var GarageSystem = {};
+
 // this function would not work where it was placed for some reason?
 function getBillPrice (key) {
     let finalPrice = 0;

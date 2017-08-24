@@ -4,19 +4,18 @@ var UtilityFunctions = {
     },
 
     scroll (selector) {
-
         if(selector) {
-            var element = $(selector);
+            let element = $(selector);
         }
         else {
-            var element = $('#output');
+            let element = $('#output');
         }
-        var height = element[0].scrollHeight;
+        let height = element[0].scrollHeight;
         element.scrollTop(height);
     },
     
     size (obj) {
-        var size = 0, key;
+        let size = 0, key;
         for (key in obj) {
             if (obj.hasOwnProperty(key)) size++;
         }

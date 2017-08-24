@@ -55,7 +55,7 @@ var WorkBookL2 = {
         $('#output').append(`<p>${text} -> ${text.some(function(v,i,a) {
             console.log(`${v} ${i} ${a}`);
             $('#output').append(`<p>${v} ${i} ${a}</p>`);
-            return a.lastIndexOf(v) != i;
+            return a.lastIndexOf(v) !== i;
         })}</p>`);
     },
 
@@ -91,7 +91,7 @@ var WorkBookL2 = {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 WorkBookL2.jsonFeed = this.responseText;
                 WorkBookL2.jsonObject = JSON.parse(this.responseText);
 
@@ -114,15 +114,17 @@ var WorkBookL2 = {
 
                 $('#render-target-heroes').append("<h4 class=\"left-align\">Team Members</h4>");
                 for(let player in WorkBookL2.jsonObject.members) {
-                    $('#render-target-heroes').append(
-                        `<div>
-                            <p><strong>Player Name</strong>: ${WorkBookL2.jsonObject.members[player].name}</p>
-                            <p><strong>Player Age</strong>: ${WorkBookL2.jsonObject.members[player].age}</p>
-                            <p><strong>Player Secret Identity</strong>: ${WorkBookL2.jsonObject.members[player].secretIdentity}</p>
-                            <p><strong>Player Powers</strong>: ${WorkBookL2.jsonOneGetPowers(WorkBookL2.jsonObject.members[player].powers)}</p>
-                        </div>
-                        <br/><br/>`
-                    );
+                    if ({}.hasOwnProperty.call(WorkBookL2.jsonObject.members, player)) {
+                        $('#render-target-heroes').append(
+                            `<div>
+                                <p><strong>Player Name</strong>: ${WorkBookL2.jsonObject.members[player].name}</p>
+                                <p><strong>Player Age</strong>: ${WorkBookL2.jsonObject.members[player].age}</p>
+                                <p><strong>Player Secret Identity</strong>: ${WorkBookL2.jsonObject.members[player].secretIdentity}</p>
+                                <p><strong>Player Powers</strong>: ${WorkBookL2.jsonOneGetPowers(WorkBookL2.jsonObject.members[player].powers)}</p>
+                            </div>
+                            <br/><br/>`
+                        );
+                    }
                 }
             }
         }
@@ -155,11 +157,13 @@ var WorkBookL2 = {
                 WorkBookL2.kingResults = [];
         
                 for(let king in WorkBookL2.jsonObject) {
-                    let kingStr = `${WorkBookL2.jsonObject[king].nm} ${WorkBookL2.jsonObject[king].cty} ${WorkBookL2.jsonObject[king].hse} ${WorkBookL2.jsonObject[king].yrs}`;
-                    
-                    if(kingStr.toLowerCase().includes(input.toLowerCase())) {
-                        WorkBookL2.kingResults.push(WorkBookL2.jsonObject[king]);
-                        console.log(`"Found: ${kingStr}`);
+                    if ({}.hasOwnProperty.call(WorkBookL2.jsonObject, king)) {
+                        let kingStr = `${WorkBookL2.jsonObject[king].nm} ${WorkBookL2.jsonObject[king].cty} ${WorkBookL2.jsonObject[king].hse} ${WorkBookL2.jsonObject[king].yrs}`;
+                        
+                        if(kingStr.toLowerCase().includes(input.toLowerCase())) {
+                            WorkBookL2.kingResults.push(WorkBookL2.jsonObject[king]);
+                            console.log(`"Found: ${kingStr}`);
+                        }
                     }
                 }
         

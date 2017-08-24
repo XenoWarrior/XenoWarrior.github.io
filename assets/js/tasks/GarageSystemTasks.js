@@ -208,7 +208,7 @@ var GarageSystem = {
                     }
                     else {
                         this.cmdPrint(` >> Command: [unregister].`);
-                        this.cmdPrint(` >> Usage: register {value}.`);
+                        this.cmdPrint(` >> Usage: unregister {value}.`);
                         this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
                         this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                     }
@@ -245,7 +245,8 @@ var GarageSystem = {
                     }
                     else{ 
                         this.cmdPrint(` >> Command: [check].`);
-                        this.cmdPrint(` >> Usage: register {value}.`);
+                        this.cmdPrint(` >> Usage: check [type] {value}.`);
+                        this.cmdPrint(` >> Available Types (one of the following): [in, out].`);
                         this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
                         this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                     }
@@ -396,7 +397,7 @@ var GarageSystem = {
                             this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
 
                             this.cmdPrint(` >> Command: [print].`);
-                            this.cmdPrint(` >> Available Parameters: [inventory, vehicle].`);
+                            this.cmdPrint(` >> Available Parameters: [inventory, vehicle, bill].`);
                             this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                         break;
                     }
@@ -410,7 +411,7 @@ var GarageSystem = {
                     this.debugPrint(`-> Command: help`);
 
                     this.cmdPrint(` >> Command: [help].`);
-                    this.cmdPrint(` >> Available commands: [register, add, remove, print, clear, help].`);
+                    this.cmdPrint(` >> Available commands: [register, unregister, add, remove, check, print, clear, help].`);
                     this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                 break;
 

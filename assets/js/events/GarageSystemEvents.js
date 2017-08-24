@@ -74,16 +74,16 @@ var GarageEvents = {
                             <li class="collection-item"><strong>Status</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].checkedIn ? "Checked In" : "Checked Out"}</span></li>
                         </ul>
                         <div class="row center-align">
-                            <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkIn(); GarageEvents.onInventoryClick();">Check-In</a>
-                            <a class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkOut(); GarageEvents.onInventoryClick();">Check-Out</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkIn(); GarageEvents.onInventoryClick();">Check-In</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="GarageSystem.getInventory()[${GarageSystem.getInventory()[key].id}].checkOut(); GarageEvents.onInventoryClick();">Check-Out</a>
                         </div>
                         <div class="row center-align">
-                            <a class="waves-effect waves-light btn" onclick="$('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add Faults</a>
-                            <a class="waves-effect waves-light btn" onclick="$('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('open');">Remove Faults</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add Faults</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$('#modal-delfault-${GarageSystem.getInventory()[key].id}').modal('open');">Remove Faults</a>
                         </div>
                         <div class="row center-align">
-                            <a class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
-                            <a class="waves-effect waves-light btn" onclick="GarageSystem.delVehicle(${GarageSystem.getInventory()[key].id});">Delete</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="$('#modal-${GarageSystem.getInventory()[key].id}').modal('open');">Get Bill</a>
+                            <a style="width: 180px;" class="waves-effect waves-light btn" onclick="GarageSystem.delVehicle(${GarageSystem.getInventory()[key].id});">Delete</a>
                         </div>
                     </li>
 

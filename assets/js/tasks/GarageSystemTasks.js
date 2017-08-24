@@ -2,29 +2,71 @@
 
 var GarageSystem = {
     vehicleList: {},
-    uniqueId: 0,
+    uniqueId: 1,
 
-    addVehicle: function (reg, make, model, faults, type) {
-        var tempVehicle = Vehicle.make(this.uniqueId, reg, make, model, faults, type);
+    carFactory: Vehicle.factory("Car"),
+    motorcycleFactory: Vehicle.factory("Motorcycle"),
+    vanFactory: Vehicle.factory("Van"),
+    unknownFactory: Vehicle.factory("Unknown Type"),
+
+    addVehicle: function (maker, reg, make, model, faults) {
+        let tempVehicle = maker(this.uniqueId, reg, make, model, faults);
 
         this.vehicleList[this.uniqueId] = tempVehicle;
         this.debugPrint(`Added vehicle: ${tempVehicle.serialiseVehicle()}`);
         this.uniqueId++;
     },
 
-    addFault: function(fault, id) {
-        this.debugPrint(`Adding fault to vehicle ID ${id}, the description is ${fault}`);
-
-        if(this.getInventory()[parseInt(id)]) {
-            if(this.getInventory()[parseInt(id)].faults[0] == "None") {
-                this.getInventory()[parseInt(id)].faults.splice(0, 1);
+    addFault: function(id, fault) {
+        if(fault != "none") {
+            let vehicleID = parseInt(id);
+            
+            this.debugPrint(`Adding fault to vehicle ID ${vehicleID}, the description is ${fault}`);
+    
+            if(this.getInventory()[vehicleID]) {
+                if(this.getInventory()[vehicleID].faults[0] == "None") {
+                    this.getInventory()[vehicleID].faults.splice(0, 1);
+                }
+    
+                this.getInventory()[vehicleID].faults.push(fault);
             }
-
-            this.getInventory()[parseInt(id)].faults.push(fault);
+            
+            this.debugPrint(this.getInventory()[vehicleID].faults);
+            GarageEvents.onInventoryClick();
         }
-        
-        this.debugPrint(this.getInventory()[parseInt(id)].faults);
-        GarageEvents.onInventoryClick();
+        else {
+            this.cmdPrint(` >> Fault cannot be "None".`);
+        }
+    },
+
+    delFault: function(id, fault) {
+        let vehicleID = parseInt(id);
+        let faultID = parseInt(fault) - 1;
+
+        if(faultID >= 0) {
+            this.debugPrint(`Removing fault from vehicle ID ${faultID}, the fault id is ${faultID}`);
+    
+            if(this.getInventory()[vehicleID]) {
+                if(this.getInventory()[vehicleID].faults[faultID] != "None") {
+                    this.getInventory()[vehicleID].faults.splice(faultID, 1);
+                    
+                    if(this.getInventory()[vehicleID].faults.length == 0) {
+                        this.getInventory()[vehicleID].faults.push("None");
+                    }
+                    this.cmdPrint(` >> Removed fault from vehicle.`);
+                }
+                else {
+                    this.cmdPrint(` >> Fault not found.`);
+                }
+            }
+    
+            this.debugPrint(this.getInventory()[vehicleID].faults);
+            GarageEvents.onInventoryClick();
+        }
+        else {
+            this.cmdPrint(` >> Fault ID must be 1 or more.`);
+        }
+
     },
 
     checkInVehicle: function (id) {
@@ -42,7 +84,7 @@ var GarageSystem = {
     printInventory: function () {
         if(UtilityFunctions.size(this.getInventory()) > 0) {
             Object.keys(this.getInventory()).forEach(function(key) {
-                this.cmdPrint(` >> Found vehicle: ${this.getInventory()[key].serialiseVehicle()}`);
+                this.cmdPrint(` >> Found vehicle: REFERENCE ID: ${this.getInventory()[key].id} | ${this.getInventory()[key].serialiseVehicle()}`);
             }, this);
         }
         else {
@@ -55,145 +97,254 @@ var GarageSystem = {
     },
     
     handleCommand: function(raw) {
-
-        let cmd = raw.toLowerCase();
-
-        this.debugPrint(`Execute: ${cmd}`);
-        this.cmdPrint(` > ${cmd}`);
-
-        let cmdParams = cmd.split(" ");
-
-        cmdParams.forEach((part) => {
-            this.debugPrint(`Command Part: ${part}`);
-        });
-
-        if(cmd == "") {
+        if(raw == "") {
             return;
         }
 
-        $('#aicli_input').val("");
+        let commandList = [];
 
-        switch(cmdParams[0]) {
-            case "register": 
-                this.debugPrint(`-> Command: register`);
-                this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                if(cmdParams[1] && cmdParams[2] && cmdParams[3] && cmdParams[4]) {
-                    this.debugPrint(`---> has three valid parameters for [type] {registration, make, model}`);
+        if(raw.includes(";")) {
+            commandList = raw.split(";");
+        }
+        else {
+            commandList.push(raw);
+        }
 
-                    switch(cmdParams[1]) {
-                        case "car":
-                            this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Car');
-                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
-                        break;
-                        
-                        case "motorcycle":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Motorcycle');
-                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
-                        break;
-                        
-                        case "van":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Van');
-                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
-                        break;
+        for(let i = 0; i < commandList.length; i++) {
+            let cmd = commandList[i].toLowerCase();
 
-                        case "unknown":
-                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                            this.addVehicle(cmdParams[2], cmdParams[3], cmdParams[4], ['None'], 'Unknown Type');
-                            this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
-                        break;
-    
-                        default:
-                            this.debugPrint(`--> has invalid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
-                            this.cmdPrint(` >> Command: [register][Unknown Type].`);
-                            this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown].`);
-                            this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
-                        break;
+            if(raw == "") {
+                continue;
+            }
+
+            if(cmd.startsWith(" ")) {
+                cmd = cmd.substring(1);
+            }
+
+            this.debugPrint(`Execute: ${cmd}`);
+            this.cmdPrint(` > ${cmd}`);
+
+            let cmdParams = cmd.split(" ");
+            cmdParams.forEach((part) => {
+                this.debugPrint(`Command Part: ${part}`);
+            });
+            $('#aicli_input').val("");
+
+            switch(cmdParams[0]) {
+                case "register": 
+                    this.debugPrint(`-> Command: register`);
+                    this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+                    if(cmdParams[1] && cmdParams[2] && cmdParams[3] && cmdParams[4]) {
+                        this.debugPrint(`---> has three valid parameters for [type] {registration, make, model}`);
+
+                        switch(cmdParams[1]) {
+                            case "car":
+                                this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+
+                                this.addVehicle(this.carFactory, cmdParams[2], cmdParams[3], cmdParams[4], ['None']);
+                                this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
+                            break;
+                            
+                            case "motorcycle":
+                                this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+
+                                this.addVehicle(this.motorcycleFactory, cmdParams[2], cmdParams[3], cmdParams[4], ['None']);
+                                this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
+                            break;
+                            
+                            case "van":
+                                this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+
+                                this.addVehicle(this.vanFactory, cmdParams[2], cmdParams[3], cmdParams[4], ['None']);
+                                this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
+                            break;
+
+                            case "unknown":
+                                this.debugPrint(`--> has valid parameter '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+
+                                this.addVehicle(this.unknownFactory, cmdParams[2], cmdParams[3], cmdParams[4], ['None']);
+                                this.cmdPrint(` >> Successfully added the vehicle, you can reference it with the ID: ${(this.uniqueId-1)}`);
+                            break;
+        
+                            default:
+                                this.debugPrint(`--> has invalid parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}', '${cmdParams[4]}'`);
+
+                                this.cmdPrint(` >> Command: [register][Unknown Type].`);
+                                this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown].`);
+                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                            break;
+                        }
                     }
-                }
-                else {
-                    this.cmdPrint(` >> Command: [register], Usage: register [type] {values ...}.`);
-                    this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown]. `);
-                    this.cmdPrint(` >> Required Values (all of the following): {registration, make, model}.`);
-                    this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
-                }
+                    else {
+                        this.cmdPrint(` >> Command: [register], Usage: register [type] {values ...}.`);
+                        this.cmdPrint(` >> Available Types (one of the following): [car, motorcycle, van, unknown]. `);
+                        this.cmdPrint(` >> Required Values (all of the following): {registration, make, model}.`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                    }
 
-                GarageEvents.onInventoryClick();
-            break;
+                    GarageEvents.onInventoryClick();
+                break;
 
-            case 'add':
-                this.debugPrint(`-> Command: add`);
-                this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[3]}', '${cmdParams[3]}'`);
-                
-                if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
-                    this.debugPrint(`---> has two valid parameters for [id, fault]`);
+                case 'add':
+                    this.debugPrint(`-> Command: add`);
+                    this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[3]}', '${cmdParams[3]}'`);
+                    
+                    if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
+                        this.debugPrint(`---> has two valid parameters for [id, fault]`);
+
+                        switch(cmdParams[1]) {
+                            case 'fault':
+                                this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[3]}', '${cmdParams[3]}'`);
+
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    this.addFault(parseInt(cmdParams[2]), cmdParams[3]);
+                                    this.cmdPrint(` >> Added fault to vehicle.`);
+                                }
+                                else {
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
+                            break;
+
+                            default:
+                                this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
+                                this.cmdPrint(` >> Command: [add] [fault].`);
+                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, vehicle_fault}.`);
+                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                            break;
+                        }
+                    }
+                    else {
+                        this.cmdPrint(` >> Command: [add].`);
+                        this.cmdPrint(` >> Usage: [add] [subcommand] {values ...}.`);
+                        this.cmdPrint(` >> Available Subcommands (one of the following): [fault].`);
+                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, vehicle_fault}.`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                    }
+                break;
+
+                case 'remove':
+                    this.debugPrint(`-> Command: remove`);
+                    this.debugPrint(`--> has parameter(s) '${cmdParams[1]}', '${cmdParams[2]}', '${cmdParams[3]}'`);
+                    
+                    if(cmdParams[1] && cmdParams[2] && cmdParams[3]) {
+                        this.debugPrint(`---> has two valid parameters for [vehicle_id, fault_index_id]`);
+                        switch(cmdParams[1]) {
+                            case 'fault':
+                                this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[3]}', '${cmdParams[3]}'`);
+
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    this.delFault(parseInt(cmdParams[2]), parseInt(cmdParams[3]));
+                                }
+                                else {
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
+                            break;
+
+                            default:
+                                this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
+                                this.cmdPrint(` >> Command: [remove] [fault].`);
+                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, fault_index_id}.`);
+                                this.cmdPrint(` >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.`);
+                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                            break;
+                        }
+                    }
+                    else {
+                        this.cmdPrint(` >> Command: [remove].`);
+                        this.cmdPrint(` >> Usage: [remove] [subcommand] {values ...}.`);
+                        this.cmdPrint(` >> Available Subcommands (one of the following): [fault].`);
+                        this.cmdPrint(` >> Required Values (all of the following): {vehicle_id, fault_index_id}.`);
+                        this.cmdPrint(` >> Usage Example: "remove fault 1 1" - this will remove the first fault from the first vehicle.`);
+                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                    }
+                break;
+
+                case "print":
+                    this.debugPrint(`-> Command: print`);
+                    this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
                     switch(cmdParams[1]) {
-                        case 'fault':
-                            this.debugPrint(`--> has valid parameter(s) '${cmdParams[1]}', '${cmdParams[3]}', '${cmdParams[3]}'`);
+                        case "inventory":
+                            this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
+                            this.printInventory();
+                        break;
 
-                            if(this.getInventory()[parseInt(cmdParams[2])]) {
-                                this.addFault(cmdParams[3], cmdParams[2]); //oops reversed the params, should be id, fault. todo: fix addFault()
-                                this.cmdPrint(` >> Added fault to vehicle.`);
+                        case 'vehicle':
+                            if(cmdParams[2] != "" && parseInt(cmdParams[2]) > 0) {
+                                this.debugPrint(`--> has valid parameter '${cmdParams[2]}'`);
+
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    let v = this.getInventory()[parseInt(cmdParams[2])];
+                                        
+                                    this.cmdPrint(` >> Vehicle ID: ${v.id}`);
+                                    this.cmdPrint(` >> Vehicle Type: ${v.type}`);
+                                    this.cmdPrint(` >> Vehicle Registration Number: ${v.reg}`);
+                                    this.cmdPrint(` >> Vehicle Make (Model): ${v.make} (${v.model})`);
+                                    this.cmdPrint(` >> Vehicle Faults: ${v.faults}`);
+                                }
+                                else {
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
                             }
                             else {
-                                this.cmdPrint(` >> Vehicle not found.`);
+                                this.cmdPrint(` >> Command: [print] [vehicle].`);
+                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
+                                this.cmdPrint(` >> Usage Example: "print vehicle 1" - this show the vehicle with the ID 1.`);
+                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                             }
+
+                        break;
+
+                        case 'bill':
+
+                            if(cmdParams[2] != "" && parseInt(cmdParams[2]) > 0) {
+                                this.debugPrint(`--> has valid parameter '${cmdParams[2]}'`);
+
+                                if(this.getInventory()[parseInt(cmdParams[2])]) {
+                                    let v = this.getInventory()[parseInt(cmdParams[2])];
+                                        
+                                    this.cmdPrint(` >> Total Price: ${finalPrice} GBP`);
+                                    this.cmdPrint(` >> Fixed Faults: ${GarageSystem.getInventory()[key].faults}`);
+                                    this.cmdPrint(` >> Bill Date: 00/00/0000`);
+                                }
+                                else {
+                                    this.cmdPrint(` >> Vehicle not found.`);
+                                }
+                            }
+                            else {
+                                this.cmdPrint(` >> Command: [print] [bill].`);
+                                this.cmdPrint(` >> Required Values (all of the following): {vehicle_id}.`);
+                                this.cmdPrint(` >> Usage Example: "print bill 1" - this show the bill for the vehicle with the ID 1.`);
+                                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
+                            }
+
                         break;
 
                         default:
                             this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
-                            this.cmdPrint(` >> Command: [add] [fault].`);
-                            this.cmdPrint(` >> Required Values (all of the following): {id, fault}.`);
+
+                            this.cmdPrint(` >> Command: [print].`);
+                            this.cmdPrint(` >> Available Parameters: [inventory, vehicle].`);
                             this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
                         break;
                     }
-                }
-                else {
-                    this.cmdPrint(` >> Command: [add].`);
-                    this.cmdPrint(` >> Usage: [add] [subcommand] {values ...}.`);
-                    this.cmdPrint(` >> Available Subcommands (one of the following): [fault].`);
-                    this.cmdPrint(` >> Required Values (all of the following): {id, fault}.`);
+                break;
+
+                case 'clear': 
+                    $('#admin-output').text("");
+                break;
+
+                case 'help': 
+                    this.debugPrint(`-> Command: help`);
+
+                    this.cmdPrint(` >> Command: [help].`);
+                    this.cmdPrint(` >> Available commands: [register, add, remove, print, clear, help].`);
                     this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
-                }
-            break;
+                break;
 
-            case "print":
-                this.debugPrint(`-> Command: print`);
-                this.debugPrint(`--> has parameter '${cmdParams[1]}'`);
-                switch(cmdParams[1]) {
-                    case "inventory":
-                        this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                        this.printInventory();
-                    break;
-
-                    case 'vehicle':
-                        this.debugPrint(`--> has valid parameter '${cmdParams[1]}'`);
-                        this.cmdPrint(` >> Command: [print] [vehicle], not yet implemented.`);
-                    break;
-
-                    default:
-                        this.debugPrint(`--> has invalid parameter '${cmdParams[1]}'`);
-
-                        this.cmdPrint(` >> Command: [print].`);
-                        this.cmdPrint(` >> Available Parameters: [inventory, vehicle].`);
-                        this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
-                    break;
-                }
-            break;
-
-            case 'help': 
-                this.debugPrint(`-> Command: help`);
-
-                this.cmdPrint(` >> Command: [help].`);
-                this.cmdPrint(` >> Available commands: [register, add, print, help].`);
-                this.cmdPrint(` >> Exclude the [] and {} brackets from your commands.`);
-            break;
-
-            default:
-                this.cmdPrint(` >> Unknown command: ${cmd}`);
-            break;
+                default:
+                    this.cmdPrint(` >> Unknown command: ${cmd}`);
+                break;
+            }
         }
     },
     cmdPrint: (val) => {

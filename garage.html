@@ -11,8 +11,8 @@
 
         <script src="./assets/js/utilities/Override.js"></script>
         <script src="./assets/js/data/Vehicle.js"></script>
-        <script src="./assets/js/events/GarageSystemEvents.js"></script>
         <script src="./assets/js/tasks/GarageSystemTasks.js"></script>
+        <script src="./assets/js/events/GarageSystemEvents.js"></script>
         <script src="./assets/js/utilities/UtilityFunctions.js"></script>
 
         <script type="text/javascript">
@@ -101,9 +101,12 @@
                                 <div class="row center-align">
                                     <div id="admin-output">
                                         <p>> Start by using the command: help</p>
+                                        <p>> Send commands by clicking "Submit" or pressing the return/enter key.</p>
+                                        <p>> Navigate the previous commands you sent by using the UP and DOWN arrow keys.</p>
+                                        <p>> All indexes start at 1 for ease.</p>
                                     </div>
                                     <div class="input-field col s10">
-                                        <input placeholder="Enter command..." id="aicli_input" type="text" class="validate"/>
+                                        <input placeholder="Enter command..." id="aicli_input" type="text" onkeypress="GarageEvents.sendCommandKey();" class="validate"/>
                                     </div>
                                     <div class="input-field col s2">
                                         <button onclick="GarageEvents.sendCommand();" class="btn-large waves-effect waves-light" type="submit" name="action">Submit</button>

@@ -20,12 +20,12 @@ var GarageSystem = {
     delVehicle: function(id) {
         if(this.getInventory()[id]) {
             delete this.getInventory()[parseInt(id)];
-            this.cmdPrint(` >> Vehicle removed.`);
+            this.debugPrint(` >> Vehicle removed.`);
 
             GarageEvents.onInventoryClick();
         }
         else {
-            this.cmdPrint(` >> Vehicle not found.`);
+            this.debugPrint(` >> Vehicle not found.`);
         }
     },
 
@@ -47,7 +47,7 @@ var GarageSystem = {
             GarageEvents.onInventoryClick();
         }
         else {
-            this.cmdPrint(` >> Fault cannot be "None".`);
+            this.debugPrint(` >> Fault cannot be "None".`);
         }
     },
 
@@ -65,10 +65,10 @@ var GarageSystem = {
                     if(this.getInventory()[vehicleID].faults.length == 0) {
                         this.getInventory()[vehicleID].faults.push("None");
                     }
-                    this.cmdPrint(` >> Removed fault from vehicle.`);
+                    this.debugPrint(` >> Removed fault from vehicle.`);
                 }
                 else {
-                    this.cmdPrint(` >> Fault not found.`);
+                    this.debugPrint(` >> Fault not found.`);
                 }
             }
     
@@ -76,9 +76,8 @@ var GarageSystem = {
             GarageEvents.onInventoryClick();
         }
         else {
-            this.cmdPrint(` >> Fault ID must be 1 or more.`);
+            this.debugPrint(` >> Fault ID must be 1 or more.`);
         }
-
     },
 
     checkInVehicle: function (id) {
@@ -266,7 +265,7 @@ var GarageSystem = {
 
                                 if(this.getInventory()[parseInt(cmdParams[2])]) {
                                     this.addFault(parseInt(cmdParams[2]), cmdParams[3]);
-                                    this.cmdPrint(` >> Added fault to vehicle.`);
+                                    this.cmdPrint(` >> Fault has been added.`);
                                 }
                                 else {
                                     this.cmdPrint(` >> Vehicle not found.`);
@@ -302,6 +301,8 @@ var GarageSystem = {
 
                                 if(this.getInventory()[parseInt(cmdParams[2])]) {
                                     this.delFault(parseInt(cmdParams[2]), parseInt(cmdParams[3]));
+                                    
+                                    this.cmdPrint(` >> Fault has been removed.`);
                                 }
                                 else {
                                     this.cmdPrint(` >> Vehicle not found.`);

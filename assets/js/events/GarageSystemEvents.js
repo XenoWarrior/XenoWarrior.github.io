@@ -1,16 +1,37 @@
 'use strict';
 
+// Tried to declare these in the object, but there was some strange issue. This works for now.
+var previousCommands = [];
+var getCommandNum = 0;
+
 var GarageEvents = {
     onAddVehicleClick: () => {
         $('#error-target').text("");
-
         if($('#l2_gs_reg').val() && $('#l2_gs_make').val() && $('#l2_gs_model').val() && $('#l2_gs_type').find(":selected").text()) {
-            GarageSystem.addVehicle($('#l2_gs_reg').val(), $('#l2_gs_make').val(), $('#l2_gs_model').val(), ['None'], $('#l2_gs_type').find(":selected").text());
+            var f = 0;
+            switch($('#l2_gs_type').find(":selected").text()) {
+                case "Car": 
+                    f = GarageSystem.carFactory;
+                break;
+                
+                case "Motorcycle": 
+                    f = GarageSystem.motorcycleFactory;
+                break;
+
+                case "Van": 
+                    f = GarageSystem.vanFactory;
+                break;
+
+                default: 
+                    f = GarageSystem.unknownFactory;
+                break;
+            }
+
+            GarageSystem.addVehicle(f, $('#l2_gs_reg').val(), $('#l2_gs_make').val(), $('#l2_gs_model').val(), ['None']);
 
             $('#l2_gs_reg').val("");
             $('#l2_gs_make').val("");
             $('#l2_gs_model').val("");
-
             $('#error-target').append("<br/><p>Vehicle added successfully!</p>");
         }
         else {
@@ -87,7 +108,7 @@ var GarageEvents = {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault($('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val(), ${GarageSystem.getInventory()[key].id})">Add</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault(${GarageSystem.getInventory()[key].id}, $('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val())">Add</a>
                         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
                     </div>
                 </div>
@@ -104,7 +125,46 @@ var GarageEvents = {
     },
 
     sendCommand: () => {
+        previousCommands.push($('#aicli_input').val());
+        getCommandNum = previousCommands.length;
+
         GarageSystem.handleCommand($('#aicli_input').val());
         UtilityFunctions.scroll('#admin-output');
+    },
+    
+    sendCommandKey: () => {
+        document.onkeydown = function(e) {
+            switch (e.keyCode) {
+                case 13:
+                    if($('#aicli_input').val() != "") {
+                        previousCommands.push($('#aicli_input').val());
+                        getCommandNum = previousCommands.length;
+                    }
+            
+                    GarageSystem.handleCommand($('#aicli_input').val());
+                    UtilityFunctions.scroll('#admin-output');    
+                break;
+
+                case 38:
+                    if(previousCommands.length > 0) {
+                        if(getCommandNum > 0) {
+                            getCommandNum--;
+                            console.log(`Getting command at ${getCommandNum}`);
+                            $('#aicli_input').val(previousCommands[getCommandNum]);
+                        }
+                    }
+                break;
+            
+                case 40:
+                    if(previousCommands.length > 0) {
+                        if(getCommandNum < previousCommands.length) {
+                            getCommandNum++;
+                            console.log(`Getting command at ${getCommandNum}`);
+                            $('#aicli_input').val(previousCommands[getCommandNum]);
+                        }
+                    }
+                break;
+            }
+        };
     }
 };

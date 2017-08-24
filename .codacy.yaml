@@ -1,2 +1,2 @@
 exclude_paths:
-  - assetsbundle/materialize/**
+  - assets/materialize/**

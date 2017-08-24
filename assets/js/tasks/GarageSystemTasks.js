@@ -17,6 +17,18 @@ var GarageSystem = {
         this.uniqueId++;
     },
 
+    delVehicle: function(id) {
+        if(this.getInventory()[id]) {
+            delete this.getInventory()[parseInt(id)];
+            this.cmdPrint(` >> Vehicle removed.`);
+
+            GarageEvents.onInventoryClick();
+        }
+        else {
+            this.cmdPrint(` >> Vehicle not found.`);
+        }
+    },
+
     addFault: function(id, fault) {
         if(fault != "none") {
             let vehicleID = parseInt(id);

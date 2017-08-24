@@ -5,7 +5,7 @@ var WorkBookL2 = {
     kingResults: [],
     currKing: 0,
 
-    iterationThree: function(maxNum, div3Text, div5Text) {
+    iterationThree (maxNum, div3Text, div5Text) {
         for(let i = 1; i <= 100; i++) {
             if(i % 3 === 0) {
                 $('#output').append(`<p>${div3Text}</p>`);
@@ -20,7 +20,7 @@ var WorkBookL2 = {
         }
     },
 
-    iterationFour: function(i) {
+    iterationFour (i) {
         let loops = 0;
         let input = parseInt(i);
         while(true) {
@@ -50,7 +50,7 @@ var WorkBookL2 = {
 
     },
 
-    stringsFour: function(input) {
+    stringsFour (input) {
         let text = input.split("");
         $('#output').append(`<p>${text} -> ${text.some(function(v,i,a) {
             console.log(`${v} ${i} ${a}`);
@@ -59,14 +59,14 @@ var WorkBookL2 = {
         })}</p>`);
     },
 
-    createParagraph: function() {
+    createParagraph () {
         $('#output').append("<p>Created new paragraph.</p>");
         
         let block = document.getElementById("create-target");
         block.innerHTML = "<p id=\"paragraph-target\">Test</p>";
     },
 
-    saveParagraph: function(input) {
+    saveParagraph (input) {
         let block = document.getElementById("paragraph-target");
 
         if(block) {
@@ -78,13 +78,13 @@ var WorkBookL2 = {
         }
     },
 
-    deleteParagraph: function() {
+    deleteParagraph () {
         $('#output').append("<p>Deleted paragraph.</p>");
         let block = document.getElementById("paragraph-target");
         block.remove();
     },
 
-    jsonOne: function() {
+    jsonOne () {
         let url = "https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/example.json";
 
         // Should use async
@@ -129,7 +129,7 @@ var WorkBookL2 = {
         xhr.send();
     },
 
-    jsonOneGetPowers: function(powers) {
+    jsonOneGetPowers (powers) {
         let final = "";
         for(let i = 0; i < powers.length; i++) {
             final += `<p>>> Power ${i}: ${powers[i]}</p>`;
@@ -137,7 +137,7 @@ var WorkBookL2 = {
         return final;
     },
 
-    jsonTwo: function(input) {
+    jsonTwo (input) {
         this.currKing = 0;
         let url = "https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/kings.json";
 
@@ -173,7 +173,7 @@ var WorkBookL2 = {
         xhr.send();
     },
 
-    jsonTwoShowKings: function() {
+    jsonTwoShowKings () {
         if(this.kingResults.length > 0) {
             $('#render-target-kings').append(
                 `<div id="render-target-result">
@@ -187,7 +187,7 @@ var WorkBookL2 = {
         }
     },
 
-    jsonTwoPrevKing: function() {
+    jsonTwoPrevKing () {
         this.currKing--;
 
         if(this.currKing < 0) {
@@ -198,7 +198,7 @@ var WorkBookL2 = {
         this.jsonTwoShowKings();
     },
 
-    jsonTwoNextKing: function() {
+    jsonTwoNextKing () {
         this.currKing++;
 
         if(this.currKing > this.kingResults.length-1) {

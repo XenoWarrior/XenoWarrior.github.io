@@ -5,7 +5,8 @@ var previousCommands = [];
 var getCommandNum = 0;
 
 var GarageEvents = {
-    onAddVehicleClick: () => {
+
+    onAddVehicleClick() {
         $('#error-target').text("");
         if($('#l2_gs_reg').val() && $('#l2_gs_make').val() && $('#l2_gs_model').val() && $('#l2_gs_type').find(":selected").text()) {
             var f = 0;
@@ -42,18 +43,17 @@ var GarageEvents = {
         UtilityFunctions.scroll();
     },
 
-    onAddFaultClick: () => {
+    onAddFaultClick() {
         GarageSystem.addFault();
         UtilityFunctions.scroll();
     },
 
-    onPrintInventoryClick: () => {
+    onPrintInventoryClick() {
         GarageSystem.printInventory();
         UtilityFunctions.scroll();
     },
-    
 
-    onInventoryClick: () => {
+    onInventoryClick() {
         $('#inventory-render-target').text("");
         if(Object.keys(GarageSystem.getInventory()).length > 0) {
             Object.keys(GarageSystem.getInventory()).forEach((key) => {
@@ -153,7 +153,7 @@ var GarageEvents = {
 
     },
 
-    sendCommand: () => {
+    sendCommand() {
         previousCommands.push($('#aicli_input').val());
         getCommandNum = previousCommands.length;
 
@@ -161,7 +161,7 @@ var GarageEvents = {
         UtilityFunctions.scroll('#admin-output');
     },
     
-    sendCommandKey: () => {
+    sendCommandKey() {
         document.onkeydown = function(e) {
             switch (e.keyCode) {
                 case 13:

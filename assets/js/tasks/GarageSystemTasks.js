@@ -301,9 +301,15 @@ var GarageSystem = {
 
                                 if(this.getInventory()[parseInt(cmdParams[2])]) {
                                     let v = this.getInventory()[parseInt(cmdParams[2])];
+
+                                    let finalPrice = 0;
+                    
+                                    if(v.faults[0] != "None") {
+                                        finalPrice = v.faults.length * 50;
+                                    }
                                         
                                     this.cmdPrint(` >> Total Price: ${finalPrice} GBP`);
-                                    this.cmdPrint(` >> Fixed Faults: ${GarageSystem.getInventory()[key].faults}`);
+                                    this.cmdPrint(` >> Fixed Faults: ${v.faults}`);
                                     this.cmdPrint(` >> Bill Date: 00/00/0000`);
                                 }
                                 else {

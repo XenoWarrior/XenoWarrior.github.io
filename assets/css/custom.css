@@ -8,12 +8,19 @@ main {
 }
 
 #output, #admin-output {
+    font-family: Consolas, monospace;
 	height: 320px;
 	max-height: 320px;
-	overflow: auto;
+    word-wrap: normal;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #admin-output {
+    font-family: Consolas, monospace;
     border: 1px solid #000000;
     text-align: left;
+    word-wrap: normal;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

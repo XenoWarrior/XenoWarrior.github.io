@@ -89,43 +89,44 @@ var WorkBookL2 = {
 
         // Should use async
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
+        xhr.open('GET', url, true);
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 WorkBookL2.jsonFeed = this.responseText;
                 WorkBookL2.jsonObject = JSON.parse(this.responseText);
+
+                $('#output').append(`<p>${WorkBookL2.jsonFeed}</p>`);
+                console.log(WorkBookL2.jsonObject);
+
+                // JSX here would benefit for things like this!
+                $('#render-target-heroes').text("");
+                $('#render-target-heroes').append(
+                    `
+                    <div>
+                        <h4 class="left-align">${WorkBookL2.jsonObject.squadName}</h4> 
+                        <p><strong>Home Town</strong>: ${WorkBookL2.jsonObject.homeTown}</p>
+                        <p><strong>Secret Base</strong>: ${WorkBookL2.jsonObject.secretBase}</p>
+                        <p><strong>Formed</strong>: ${WorkBookL2.jsonObject.formed}</p>
+                        <p><strong>Active</strong>: ${(WorkBookL2.jsonObject.active ? "Yes" : "No")}</p>
+                    </div>
+                    <br/><br/>`
+                );
+
+                $('#render-target-heroes').append("<h4 class=\"left-align\">Team Members</h4>");
+                for(let player in WorkBookL2.jsonObject.members) {
+                    $('#render-target-heroes').append(
+                        `<div>
+                            <p><strong>Player Name</strong>: ${WorkBookL2.jsonObject.members[player].name}</p>
+                            <p><strong>Player Age</strong>: ${WorkBookL2.jsonObject.members[player].age}</p>
+                            <p><strong>Player Secret Identity</strong>: ${WorkBookL2.jsonObject.members[player].secretIdentity}</p>
+                            <p><strong>Player Powers</strong>: ${WorkBookL2.jsonOneGetPowers(WorkBookL2.jsonObject.members[player].powers)}</p>
+                        </div>
+                        <br/><br/>`
+                    );
+                }
             }
         }
         xhr.send();
-
-        $('#output').append(`<p>${this.jsonFeed}</p>`);
-        console.log(this.jsonObject);
-
-        // JSX here would benefit for things like this!
-        $('#render-target-heroes').append(
-            `
-            <div>
-                <h4 class="left-align">${this.jsonObject.squadName}</h4> 
-                <p><strong>Home Town</strong>: ${this.jsonObject.homeTown}</p>
-                <p><strong>Secret Base</strong>: ${this.jsonObject.secretBase}</p>
-                <p><strong>Formed</strong>: ${this.jsonObject.formed}</p>
-                <p><strong>Active</strong>: ${(this.jsonObject.active ? "Yes" : "No")}</p>
-            </div>
-            <br/><br/>`
-        );
-
-        $('#render-target-heroes').append("<h4 class=\"left-align\">Team Members</h4>");
-        for(let player in this.jsonObject.members) {
-            $('#render-target-heroes').append(
-                `<div>
-                    <p><strong>Player Name</strong>: ${this.jsonObject.members[player].name}</p>
-                    "<p><strong>Player Age</strong>: ${this.jsonObject.members[player].age}</p>
-                    "<p><strong>Player Secret Identity</strong>: ${this.jsonObject.members[player].secretIdentity}</p>
-                    "<p><strong>Player Powers</strong>: ${this.jsonOneGetPowers(this.jsonObject.members[player].powers)}</p>
-                </div>
-                <br/><br/>`
-            );
-        }
     },
 
     jsonOneGetPowers: function(powers) {
@@ -142,34 +143,34 @@ var WorkBookL2 = {
 
         // Should use async
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
+        xhr.open('GET', url, true);
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 WorkBookL2.jsonFeed = this.responseText;
                 WorkBookL2.jsonObject = JSON.parse(this.responseText);
+                
+                $('#output').append(`<p>${WorkBookL2.jsonFeed}</p>`);
+                console.log(WorkBookL2.jsonObject);
+        
+                WorkBookL2.kingResults = [];
+        
+                for(let king in WorkBookL2.jsonObject) {
+                    let kingStr = `${WorkBookL2.jsonObject[king].nm} ${WorkBookL2.jsonObject[king].cty} ${WorkBookL2.jsonObject[king].hse} ${WorkBookL2.jsonObject[king].yrs}`;
+                    
+                    if(kingStr.toLowerCase().includes(input.toLowerCase())) {
+                        WorkBookL2.kingResults.push(WorkBookL2.jsonObject[king]);
+                        console.log(`"Found: ${kingStr}`);
+                    }
+                }
+        
+                console.log(`Found ${WorkBookL2.kingResults.length} results for search term ${input}`);
+                $('#output').append(`<p>Found ${WorkBookL2.kingResults.length} results for search term ${input}</p>`);
+                $('#render-target-kings').text(`Found ${WorkBookL2.kingResults.length} results for search term ${input}`);
+        
+                WorkBookL2.jsonTwoShowKings();
             }
         };
         xhr.send();
-
-        $('#output').append(`<p>${this.jsonFeed}</p>`);
-        console.log(this.jsonObject);
-
-        this.kingResults = [];
-
-        for(let king in this.jsonObject) {
-            let kingStr = `${this.jsonObject[king].nm} ${this.jsonObject[king].cty} ${this.jsonObject[king].hse} ${this.jsonObject[king].yrs}`;
-            
-            if(kingStr.toLowerCase().includes(input.toLowerCase())) {
-                this.kingResults.push(this.jsonObject[king]);
-                console.log(`"Found: ${kingStr}`);
-            }
-        }
-
-        console.log(`Found ${this.kingResults.length} results for search term ${input}`);
-        $('#output').append(`<p>Found ${this.kingResults.length} results for search term ${input}</p>`);
-        $('#render-target-kings').text(`Found ${this.kingResults.length} results for search term ${input}`);
-
-        this.jsonTwoShowKings();
     },
 
     jsonTwoShowKings: function() {

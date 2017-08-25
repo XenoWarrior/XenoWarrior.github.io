@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Tried to declare these in the object, but there was some strange issue. This works for now.
 var previousCommands = [];
@@ -7,10 +7,11 @@ var getCommandNum = 0;
 var GarageEvents = {
 
     onAddVehicleClick() {
-        $('#error-target').text("");
-        if($('#l2_gs_reg').val() && $('#l2_gs_make').val() && $('#l2_gs_model').val() && $('#l2_gs_type').find(":selected").text()) {
+        $("#error-target").text("");
+        if($("#l2_gs_reg").val() && $("#l2_gs_make").val() && $("#l2_gs_model").val() && $("#l2_gs_type").find(":selected").text()) {
             var f = 0;
-            switch($('#l2_gs_type').find(":selected").text()) {
+            
+            switch($("#l2_gs_type").find(":selected").text()) {
                 case "Car": 
                     f = GarageSystem.carFactory;
                 break;
@@ -28,17 +29,16 @@ var GarageEvents = {
                 break;
             }
 
-            GarageSystem.addVehicle(f, $('#l2_gs_reg').val(), $('#l2_gs_make').val(), $('#l2_gs_model').val(), ['None']);
+            GarageSystem.addVehicle(f, $("#l2_gs_reg").val(), $("#l2_gs_make").val(), $("#l2_gs_model").val(), ["None"]);
 
-            $('#l2_gs_reg').val("");
-            $('#l2_gs_make').val("");
-            $('#l2_gs_model').val("");
-            $('#error-target').append("<br/><p>Vehicle added successfully!</p>");
+            $("#l2_gs_reg").val("");
+            $("#l2_gs_make").val("");
+            $("#l2_gs_model").val("");
+            $("#error-target").append("<br/><p>Vehicle added successfully!</p>");
         }
         else {
-            $('#error-target').append("<br/><p>All fields must be filled out before registering a vehicle.</p>");
+            $("#error-target").append("<br/><p>All fields must be filled out before registering a vehicle.</p>");
         }
-        
 
         UtilityFunctions.scroll();
     },
@@ -54,12 +54,12 @@ var GarageEvents = {
     },
 
     onInventoryClick() {
-        $('#inventory-render-target').text("");
+        $("#inventory-render-target").text("");
         if(Object.keys(GarageSystem.getInventory()).length > 0) {
             Object.keys(GarageSystem.getInventory()).forEach((key) => {
                 let finalPrice = getBillPrice(key);
 
-                $('#inventory-render-target').append(`
+                $("#inventory-render-target").append(`
                     <li class="collection-item">
                         <ul class="collection">
                             <li class="collection-item"><strong>Vehicle ID</strong>: <span style="float: right;">${GarageSystem.getInventory()[key].id}</span></li>
@@ -105,8 +105,8 @@ var GarageEvents = {
                             <h4>Add Faults</h4>
                             <div class="row">
                                 <p>
-                                    When 'Add' is pressed, it will add the fault and show the form again to add more faults.<br/>
-                                    Click 'Close' when done adding faults.
+                                    When "Add" is pressed, it will add the fault and show the form again to add more faults.<br/>
+                                    Click "Close" when done adding faults.
                                 </p>
                                 <div class="input-field col s12">
                                     <input placeholder="Enter description here..." id="l2_gs_fault_${GarageSystem.getInventory()[key].id}" type="text" class="validate" />
@@ -114,7 +114,6 @@ var GarageEvents = {
                             </div>
                         </div>
                         <div class="modal-footer">
-                        
                             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="GarageSystem.addFault(${GarageSystem.getInventory()[key].id}, $('#l2_gs_fault_${GarageSystem.getInventory()[key].id}').val()); $('#modal-addfault-${GarageSystem.getInventory()[key].id}').modal('open');">Add</a>
                             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
                         </div>
@@ -126,8 +125,8 @@ var GarageEvents = {
                             <h4>Remove Faults</h4>
                             <div class="row">
                                 <p>
-                                    When 'Delete' is pressed, it will delete the fault and show the form again to delete more faults.<br/>
-                                    Click 'Close' when done deleting faults.
+                                    When "Delete" is pressed, it will delete the fault and show the form again to delete more faults.<br/>
+                                    Click "Close" when done deleting faults.
                                 </p>
                                 <ul id="fault-target-${GarageSystem.getInventory()[key].id}" class="collection"></ul> 
                             </div>
@@ -148,30 +147,30 @@ var GarageEvents = {
             });
         }
         else {
-            $('#inventory-render-target').append(`<a href="#!" class="collection-item">No vehicles found.</a>`);
+            $("#inventory-render-target").append(`<a href="#!" class="collection-item">No vehicles found.</a>`);
         }
 
     },
 
     sendCommand() {
-        previousCommands.push($('#aicli_input').val());
+        previousCommands.push($("#aicli_input").val());
         getCommandNum = previousCommands.length;
 
-        GarageSystem.handleCommand($('#aicli_input').val());
-        UtilityFunctions.scroll('#admin-output');
+        GarageSystem.handleCommand($("#aicli_input").val());
+        UtilityFunctions.scroll("#admin-output");
     },
     
     sendCommandKey() {
         document.onkeydown = function(e) {
             switch (e.keyCode) {
                 case 13:
-                    if($('#aicli_input').val() != "") {
-                        previousCommands.push($('#aicli_input').val());
+                    if($("#aicli_input").val() != "") {
+                        previousCommands.push($("#aicli_input").val());
                         getCommandNum = previousCommands.length;
                     }
             
-                    GarageSystem.handleCommand($('#aicli_input').val());
-                    UtilityFunctions.scroll('#admin-output');    
+                    GarageSystem.handleCommand($("#aicli_input").val());
+                    UtilityFunctions.scroll("#admin-output");    
                 break;
 
                 case 38:
@@ -179,7 +178,7 @@ var GarageEvents = {
                         if(getCommandNum > 0) {
                             getCommandNum--;
                             console.log(`Getting command at ${getCommandNum}`);
-                            $('#aicli_input').val(previousCommands[getCommandNum]);
+                            $("#aicli_input").val(previousCommands[getCommandNum]);
                         }
                     }
                 break;
@@ -189,7 +188,7 @@ var GarageEvents = {
                         if(getCommandNum < previousCommands.length) {
                             getCommandNum++;
                             console.log(`Getting command at ${getCommandNum}`);
-                            $('#aicli_input').val(previousCommands[getCommandNum]);
+                            $("#aicli_input").val(previousCommands[getCommandNum]);
                         }
                     }
                 break;
